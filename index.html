@@ -1,0 +1,765 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Fredoka One',cursive;background:linear-gradient(160deg,#071528 0%,#0d3058 55%,#071528 100%);min-height:100vh;overflow-x:hidden}
+.sf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.fl{position:absolute;top:-30px;animation:sn linear infinite;opacity:.6;font-style:normal}
+@keyframes sn{to{transform:translateY(102vh) rotate(360deg);opacity:0}}
+.wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:8px 8px 28px}
+.hdr{text-align:center;padding:12px 0 7px}
+.hdr h1{font-size:2em;color:#d6f0fb;text-shadow:0 0 26px rgba(168,216,234,.8);line-height:1.1}
+.hdr p{font-size:1.05em;color:#a8d8ea;margin-top:2px}
+.pills{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:5px}
+.pill{background:rgba(168,216,234,.18);border:2px solid rgba(168,216,234,.38);border-radius:28px;padding:3px 12px;font-size:.92em;color:#d6f0fb}
+.nav{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin:7px 0}
+.nb{background:rgba(168,216,234,.1);border:2px solid rgba(168,216,234,.28);border-radius:16px;padding:6px 8px;cursor:pointer;font-family:'Fredoka One',cursive;font-size:.9em;color:#d6f0fb;transition:all .17s;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:64px}
+.nb .ni{font-size:1.55em}.nb .nl{font-size:.6em}
+.nb:hover,.nb.on{background:linear-gradient(135deg,#4a90b8,#26c6da);border-color:#d6f0fb;transform:scale(1.06);box-shadow:0 3px 12px rgba(168,216,234,.4)}
+.panel{display:none;background:rgba(255,255,255,.97);border-radius:24px;padding:16px 14px;margin-top:7px;box-shadow:0 8px 40px rgba(0,0,0,.32)}
+.panel.on{display:block}
+.esay{display:flex;gap:9px;align-items:flex-start;background:linear-gradient(135deg,#e8f4fd,#ede8f6);border-radius:20px;padding:11px 13px;margin-bottom:12px;border:3px solid #b39ddb}
+.eface{font-size:2.6em;cursor:pointer;transition:transform .18s;flex-shrink:0}
+.eface:hover{transform:scale(1.12) rotate(-5deg)}
+.espeech{font-size:1.05em;color:#1a3a4a;line-height:1.5;padding-top:3px}
+.strow{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+/* FIX: white-space:nowrap prevents label clipping */
+.st{background:#e1f5fe;border:2px solid #a8d8ea;border-radius:12px;padding:5px 12px;cursor:pointer;font-family:'Fredoka One',cursive;font-size:.86em;color:#2d6080;transition:all .14s;white-space:nowrap}
+.st:hover,.st.on{background:linear-gradient(135deg,#4a90b8,#26c6da);color:#fff;border-color:transparent}
+.sp{display:none}.sp.on{display:block}
+.bb{background:linear-gradient(135deg,#4a90b8,#26c6da);color:#fff;border:none;border-radius:14px;padding:9px 18px;font-family:'Fredoka One',cursive;font-size:1.05em;cursor:pointer;transition:all .17s;box-shadow:0 3px 10px rgba(74,144,184,.38);display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.bb:hover{transform:translateY(-2px) scale(1.03)}
+.bb.gd{background:linear-gradient(135deg,#f0c040,#c9981a)}
+.bb.gn{background:linear-gradient(135deg,#4caf7d,#1b5e20)}
+.bb.pp{background:linear-gradient(135deg,#7b5ea7,#4a148c)}
+.bb.co{background:linear-gradient(135deg,#ef7c8e,#c0392b)}
+.fc{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.ic{background:#e1f5fe;border-radius:14px;padding:11px;border:2px solid #a8d8ea;text-align:center;cursor:pointer;transition:all .14s}
+.ic:hover{background:#c8e8f5;transform:scale(1.03)}
+.ic .ii{font-size:1.8em;display:block;margin-bottom:3px}
+.ic .it{font-size:.9em;color:#2d6080;display:block;margin-bottom:1px}
+.ic .iv{font-size:.78em;color:#1a3a4a;font-family:'Nunito',sans-serif;font-weight:700;line-height:1.3}
+.czone{display:flex;flex-direction:column;align-items:center;gap:8px}
+.dbig{font-size:2.2em;color:#2d6080;background:#e1f5fe;border-radius:15px;padding:6px 20px;letter-spacing:2px;border:3px solid #a8d8ea}
+.wbig{font-size:1.3em;color:#2d6080;background:#e1f5fe;border-radius:12px;padding:6px 15px;text-align:center;border:3px solid #a8d8ea}
+.ampb{font-size:1.4em;color:#fff;border-radius:14px;padding:5px 18px;display:inline-block}
+.am-s{background:linear-gradient(135deg,#185FA5,#378ADD)}
+.pm-s{background:linear-gradient(135deg,#854F0B,#BA7517)}
+.am-t{background:#E6F1FB;color:#0C447C;padding:2px 8px;border-radius:999px;font-size:.75em;font-family:'Fredoka One',cursive}
+.pm-t{background:#FAEEDA;color:#633806;padding:2px 8px;border-radius:999px;font-size:.75em;font-family:'Fredoka One',cursive}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:420px;margin:0 auto}
+.ob{background:#e1f5fe;border:3px solid #a8d8ea;border-radius:14px;padding:12px 7px;cursor:pointer;font-family:'Fredoka One',cursive;font-size:1.18em;color:#1a3a4a;transition:all .17s;text-align:center}
+.ob:hover{background:#c8e8f5;transform:scale(1.04)}
+.ob.ok{background:#c8e6c9;border-color:#4caf50;color:#1b5e20;animation:pop .28s ease}
+.ob.no{background:#ffcdd2;border-color:#ef5350;color:#b71c1c}
+@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.13)}}
+.fb{font-size:1.6em;text-align:center;min-height:1.8em;padding:4px 0;display:flex;align-items:center;justify-content:center;gap:5px}
+.fb.ok{color:#4caf50}.fb.no{color:#ef5350}
+.pbar{height:12px;background:#e1f5fe;border-radius:12px;overflow:hidden;margin:5px 0;border:2px solid #a8d8ea}
+.pf{height:100%;background:linear-gradient(90deg,#26c6da,#4a90b8);border-radius:12px;transition:width .5s}
+.rw{display:flex;align-items:center;gap:7px;background:#e1f5fe;border-radius:10px;padding:6px 10px;margin-bottom:5px;border:2px solid #a8d8ea}
+.rw input[type=range]{flex:1;height:8px;accent-color:#4a90b8}
+.rv{font-size:1em;color:#4a90b8;min-width:40px;text-align:center;background:#c8e8f5;border-radius:7px;padding:2px 5px}
+.scard{background:#e1f5fe;border-radius:12px;padding:11px;border:2px solid #a8d8ea;margin-bottom:6px}
+.sea-g{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+.sc{border-radius:16px;padding:14px;text-align:center;cursor:pointer;transition:all .17s;border:3px solid transparent}
+.sc:hover{transform:scale(1.04)}
+.sc.on{border-color:#f0c040;box-shadow:0 0 16px rgba(240,192,64,.42)}
+.sc .si{font-size:2.8em;display:block;margin-bottom:4px}
+.sc .sn{font-size:1.28em;display:block}
+.sc .sm{font-size:.76em;opacity:.8;display:block;margin-top:2px}
+.spr{background:linear-gradient(135deg,#f8bbd9,#fff9c4);color:#5d4037}
+.sum{background:linear-gradient(135deg,#fff9c4,#ffe0b2);color:#4e342e}
+.aut{background:linear-gradient(135deg,#ffe0b2,#ffccbc);color:#3e2723}
+.win{background:linear-gradient(135deg,#e1f5fe,#e8eaf6);color:#1a237e}
+.dn-s{border-radius:16px;padding:18px;text-align:center;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:all .5s}
+.sc-m{background:linear-gradient(135deg,#fff9c4,#ffe0b2);color:#4e342e}
+.sc-a{background:linear-gradient(135deg,#e1f5fe,#e8f5e9);color:#1a3a4a}
+.sc-e{background:linear-gradient(135deg,#ffccbc,#f8bbd9);color:#4e342e}
+.sc-n{background:linear-gradient(135deg,#1a237e,#311b92);color:#fff}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:7px}
+.ch{text-align:center;font-size:.78em;color:#2d6080;padding:2px}
+.cc{text-align:center;padding:6px 2px;border-radius:7px;font-size:.88em;cursor:pointer;background:#e1f5fe;color:#1a3a4a;transition:all .17s;border:2px solid transparent}
+.cc:hover{background:#c8e8f5;transform:scale(1.08)}
+.cc.tod{background:linear-gradient(135deg,#4a90b8,#26c6da);color:#fff;border-color:#fff}
+.cc.emp{background:transparent;cursor:default}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:400px;margin:7px auto}
+.mc{background:#e1f5fe;border:3px solid #a8d8ea;border-radius:11px;padding:5px;cursor:pointer;text-align:center;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.95em;transition:all .17s}
+.mc:hover{border-color:#4a90b8;transform:scale(1.05)}
+.mc.mat{background:#c8e6c9;border-color:#4caf50}
+.ex-g{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.ec{background:#fff;border:2.5px solid #a8d8ea;border-radius:11px;padding:7px;cursor:pointer;text-align:center;transition:all .17s;display:flex;flex-direction:column;align-items:center;gap:3px}
+.ec:hover{border-color:#4a90b8;transform:scale(1.03)}
+.ec.on{border-color:#26c6da;background:#e1f5fe}
+.tl-b{display:flex;height:50px;border-radius:12px;overflow:hidden;margin:7px 0}
+.tl-am{flex:1;background:#E6F1FB;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tl-pm{flex:1;background:#FAEEDA;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.mr{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:6px}
+.mrc{background:#e1f5fe;border:1.5px solid #a8d8ea;border-radius:5px;padding:3px 1px;text-align:center}
+.ch-hist{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.bub{padding:8px 12px;border-radius:15px;max-width:80%;font-size:.9em;line-height:1.5;font-family:'Nunito',sans-serif;font-weight:700}
+.bub.el{background:linear-gradient(135deg,#e1f5fe,#e8eaf6);color:#1a3a4a;border-radius:15px 15px 15px 3px}
+.bub.us{background:linear-gradient(135deg,#fff9c4,#ffe0b2);color:#4e342e;border-radius:15px 15px 3px 15px}
+.cr{display:flex;gap:6px;align-items:flex-end}
+.cr.us{flex-direction:row-reverse}
+.ci{display:flex;gap:6px;margin-top:7px}
+.ci input{flex:1;padding:8px 11px;border-radius:12px;border:2.5px solid #a8d8ea;font-family:'Fredoka One';font-size:.98em;background:#e1f5fe;color:#1a3a4a}
+.qbg{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.qb{background:#e1f5fe;border:2px solid #a8d8ea;border-radius:9px;padding:4px 9px;font-family:'Fredoka One';font-size:.8em;cursor:pointer;color:#2d6080;transition:all .13s;white-space:nowrap}
+.qb:hover{background:#c8e8f5;border-color:#4a90b8}
+.stb{position:fixed;font-size:1.8em;pointer-events:none;animation:bst .85s ease forwards;z-index:9999}
+@keyframes bst{0%{opacity:1;transform:scale(.5)}60%{transform:scale(1.5)}100%{opacity:0;transform:scale(2) translateY(-65px)}}
+.drag-hint{font-size:.96em;color:#2d6080;text-align:center;animation:pls 2s infinite}
+@keyframes pls{0%,100%{opacity:1}50%{opacity:.4}}
+.pr-row{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-top:5px}
+.pb{background:#e1f5fe;border:2px solid #a8d8ea;border-radius:8px;padding:4px 9px;font-family:'Fredoka One';font-size:.84em;cursor:pointer;color:#1a3a4a;transition:all .12s;white-space:nowrap}
+.pb:hover{background:#c8e8f5;border-color:#4a90b8}
+.mo-g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.moc{border-radius:11px;padding:7px 3px;text-align:center;cursor:pointer;transition:all .16s}
+.moc:hover{transform:scale(1.05)}
+.moi{font-size:1.7em;display:block;margin-bottom:1px}
+.mon{font-size:.75em;color:#1a3a4a}
+.comp{text-align:center;padding:14px}
+.comp .tr{font-size:3.8em;display:block}
+.comp .ms2{font-size:1.5em;color:#4a90b8;margin:6px 0}
+.hemi-row{display:flex;gap:0;justify-content:center;margin-bottom:10px}
+.hb{padding:7px 16px;border:2px solid #a8d8ea;font-family:'Fredoka One',cursive;font-size:.95em;cursor:pointer;background:#e1f5fe;color:#2d6080;transition:all .17s;white-space:nowrap}
+.hb:first-child{border-radius:12px 0 0 12px}
+.hb:last-child{border-radius:0 12px 12px 0}
+.hb.on{background:linear-gradient(135deg,#4a90b8,#26c6da);color:#fff;border-color:#4a90b8}
+.hnote{text-align:center;font-size:.84em;color:#2d6080;background:#e1f5fe;border-radius:10px;padding:6px 12px;margin-bottom:9px;border:2px solid #a8d8ea}
+.bzone{position:relative;height:200px;background:linear-gradient(180deg,#e1f5fe,#f0faff);border-radius:14px;overflow:hidden;border:3px solid #a8d8ea;margin:7px 0}
+.bwrap{position:absolute;bottom:10px;display:flex;flex-direction:column;align-items:center;cursor:pointer;animation:fup linear forwards}
+@keyframes fup{from{transform:translateY(0)}to{transform:translateY(-240px)}}
+.bico{font-size:2em;line-height:1}
+.blbl{font-size:.65em;background:#fff;border-radius:7px;padding:1px 5px;margin-top:1px;color:#1a3a4a;border:2px solid #a8d8ea;font-family:'Fredoka One',cursive;pointer-events:none;white-space:nowrap}
+.ocard{background:#fff;border:3px solid #a8d8ea;border-radius:12px;padding:9px 12px;font-size:.98em;color:#1a3a4a;cursor:pointer;transition:all .17s;user-select:none;text-align:center}
+.ocard:hover{border-color:#4a90b8;transform:scale(1.04)}
+.ocard.placed{background:#c8e6c9;border-color:#4caf50;cursor:default}
+.act-card{background:linear-gradient(135deg,#e1f5fe,#ede8f6);border-radius:16px;padding:18px;text-align:center;border:3px solid #b39ddb;margin:7px 0}
+.tgt-t{font-size:1.65em;color:#2d6080;background:#e1f5fe;border-radius:12px;padding:6px 18px;border:3px solid #a8d8ea;margin:6px 0;display:inline-block}
+.spin-hint{font-size:.92em;color:#2d6080;background:#fff9c4;border-radius:9px;padding:5px 12px;border:2px solid #f0c040;margin:4px 0;text-align:center}
+</style>
+
+<div class="sf" id="sf"></div>
+<div class="wrap">
+<div class="hdr">
+  <h1>❄️ Elsa's Time Kingdom ❄️</h1>
+  <p>🕐 Learn time with Queen Elsa! 👸</p>
+  <div class="pills">
+    <div class="pill">⭐ <span id="tot-s">0</span> Stars</div>
+    <div class="pill">🏆 <span id="tot-p">0</span> Points</div>
+    <div class="pill" id="lvl">🌟 Explorer</div>
+  </div>
+</div>
+<div class="nav">
+  <button class="nb on" onclick="go('learn',this)"><span class="ni">📚</span><span class="nl">Learn</span></button>
+  <button class="nb" onclick="go('clock',this)"><span class="ni">🕐</span><span class="nl">Clock</span></button>
+  <button class="nb" onclick="go('analog',this)"><span class="ni">🎯</span><span class="nl">Hands</span></button>
+  <button class="nb" onclick="go('quiz',this)"><span class="ni">❓</span><span class="nl">Quiz</span></button>
+  <button class="nb" onclick="go('game',this)"><span class="ni">🎮</span><span class="nl">Games</span></button>
+  <button class="nb" onclick="go('mini',this)"><span class="ni">🎪</span><span class="nl">Mini Games</span></button>
+  <button class="nb" onclick="go('cal',this)"><span class="ni">📅</span><span class="nl">Calendar</span></button>
+  <button class="nb" onclick="go('seas',this)"><span class="ni">🌸</span><span class="nl">Seasons</span></button>
+  <button class="nb" onclick="go('dn',this)"><span class="ni">🌅</span><span class="nl">Day&amp;Night</span></button>
+  <button class="nb" onclick="go('elsa',this)"><span class="ni">👸</span><span class="nl">Ask Elsa</span></button>
+</div>
+
+<!-- LEARN -->
+<div class="panel on" id="p-learn">
+  <div class="esay"><div class="eface" onclick="say('Welcome to my Time Kingdom! Tap anything to hear me talk! Let us learn about clocks and time together!')">👸</div><div class="espeech">Tap me or any card to hear about it! ❄️</div></div>
+  <div class="strow">
+    <button class="st on" onclick="gsub('learn','parts',this)">⏰ Clock Parts</button>
+    <button class="st" onclick="gsub('learn','words',this)">🗣️ Time Words</button>
+    <button class="st" onclick="gsub('learn','units',this)">📏 Time Sizes</button>
+    <button class="st" onclick="gsub('learn','days7',this)">📆 7 Days</button>
+    <button class="st" onclick="gsub('learn','months12',this)">🗓️ 12 Months</button>
+  </div>
+  <div class="sp on" id="l-parts">
+    <div class="g2">
+      <div class="ic" onclick="say('The short thick hand shows the HOUR! It moves very slowly, like Sven the reindeer walking in deep snow!')"><span class="ii">🦴</span><span class="it">Short Hand</span><span class="iv">= HOURS 🕐 Moves slowly</span></div>
+      <div class="ic" onclick="say('The long thin hand shows the MINUTES! It moves faster! Count by fives from twelve to read the minutes!')"><span class="ii">📏</span><span class="it">Long Hand</span><span class="iv">= MINUTES ⏱️ Count by 5s!</span></div>
+      <div class="ic" onclick="say('The very thin hand shows the SECONDS! It zooms all the way around in just sixty seconds!')"><span class="ii">⚡</span><span class="it">Thin Hand</span><span class="iv">= SECONDS ⚡ Zooms!</span></div>
+      <div class="ic" onclick="say('The numbers one to twelve go all the way around the clock face! They always go clockwise!')"><span class="ii">🔢</span><span class="it">Numbers 1–12</span><span class="iv">Around the face! ➡️</span></div>
+    </div>
+    <div class="fc" style="margin-top:10px"><button class="bb" onclick="say('Remember! Short hand for hours. Long hand for minutes. Thin hand for seconds! Together they show the time!')">🔊 Remember this!</button></div>
+  </div>
+  <div class="sp" id="l-words">
+    <div class="g3">
+      <div class="ic" onclick="say('O clock! When the long hand points straight UP to twelve, we say o clock! Like three o clock!')"><span class="ii">🕐</span><span class="it">O'Clock</span><span class="iv">Long hand UP ☝️</span></div>
+      <div class="ic" onclick="say('Half past! The long hand is at the bottom pointing to six! Thirty minutes! Like half past four!')"><span class="ii">🕧</span><span class="it">Half Past</span><span class="iv">Long hand DOWN 👇</span></div>
+      <div class="ic" onclick="say('Quarter past! The long hand points to the RIGHT to the three! Fifteen minutes after the hour!')"><span class="ii">🕒</span><span class="it">Quarter Past</span><span class="iv">Long hand RIGHT 👉</span></div>
+      <div class="ic" onclick="say('Quarter to! The long hand points to the LEFT to the nine! Fifteen minutes BEFORE the next hour!')"><span class="ii">🕙</span><span class="it">Quarter To</span><span class="iv">Long hand LEFT 👈</span></div>
+      <div class="ic" onclick="say('Five past! The long hand is at the number one! Five minutes after the hour!')"><span class="ii">🕐</span><span class="it">Five Past</span><span class="iv">Long hand at 1️⃣</span></div>
+      <div class="ic" onclick="say('Ten to! The long hand is at the number ten! Ten minutes before the next hour!')"><span class="ii">🕙</span><span class="it">Ten To</span><span class="iv">Long hand at 🔟</span></div>
+    </div>
+    <div class="fc" style="margin-top:9px"><button class="bb" onclick="say('Tap each card to hear about it! When we say TO we count down to the NEXT hour!')">🔊 Tap each one!</button></div>
+  </div>
+  <div class="sp" id="l-units">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="ic" style="display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px" onclick="say('Sixty seconds make one minute!')"><span style="font-size:2em">⚡</span><div><span class="it" style="font-size:.95em">60 seconds</span><br><span class="iv">= 1 Minute!</span></div></div>
+      <div class="ic" style="display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px" onclick="say('Sixty minutes make one hour! The long hand goes all the way around!')"><span style="font-size:2em">⏱️</span><div><span class="it" style="font-size:.95em">60 minutes</span><br><span class="iv">= 1 Hour!</span></div></div>
+      <div class="ic" style="display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px" onclick="say('Twenty four hours make one whole day! Twelve A M hours and twelve P M hours!')"><span style="font-size:2em">🌅</span><div><span class="it" style="font-size:.95em">24 hours</span><br><span class="iv">= 1 Day!</span></div></div>
+      <div class="ic" style="display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px" onclick="say('Seven days make one week! Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday!')"><span style="font-size:2em">📅</span><div><span class="it" style="font-size:.95em">7 days</span><br><span class="iv">= 1 Week!</span></div></div>
+      <div class="ic" style="display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px" onclick="say('Twelve months make one year! Every four years we get a Leap Year with an extra day!')"><span style="font-size:2em">🎂</span><div><span class="it" style="font-size:.95em">12 months</span><br><span class="iv">= 1 Year!</span></div></div>
+    </div>
+  </div>
+  <div class="sp" id="l-days7"><div style="display:flex;flex-direction:column;gap:6px" id="days-list"></div></div>
+  <div class="sp" id="l-months12"><div class="mo-g" id="months-grid"></div><div id="mo-info" style="background:#e1f5fe;border-radius:12px;padding:10px;margin-top:8px;font-size:.95em;color:#1a3a4a;display:none"></div></div>
+</div>
+
+<!-- CLOCK -->
+<div class="panel" id="p-clock">
+  <div class="esay"><div class="eface" onclick="say('This is my magical ice clock showing the real time right now! Watch the hands moving!')">👸</div><div class="espeech">This shows the real time RIGHT NOW! ⏰</div></div>
+  <div class="strow">
+    <button class="st on" onclick="gsub('clock','live',this)">🕐 Live Clock</button>
+    <button class="st" onclick="gsub('clock','explore',this)">🔍 Explore</button>
+    <!-- FIX: was "Digital Too" → now "Digital Clock" -->
+    <button class="st" onclick="gsub('clock','both',this)">💻 Digital Clock</button>
+  </div>
+  <div class="sp on" id="cl-live">
+    <div class="czone">
+      <canvas id="liveClock" width="200" height="200"></canvas>
+      <div class="dbig" id="lDig">00:00</div>
+      <div id="lAMPM" class="ampb am-s">🌅 AM</div>
+      <div class="wbig" id="lWords">Loading...</div>
+      <div class="g2" style="width:100%;max-width:360px">
+        <div class="ic" onclick="sayLiveTime()"><span class="ii" id="lPIco">🌅</span><span class="it" id="lPName">Morning</span></div>
+        <div class="ic" onclick="say('Every day has twenty four hours! Twelve A M and twelve P M!')"><span class="ii">🔢</span><span class="it">24 hours a day!</span></div>
+      </div>
+      <button class="bb" onclick="sayLiveTime()">🔊 What time is it?</button>
+    </div>
+  </div>
+  <div class="sp" id="cl-explore">
+    <div class="czone">
+      <canvas id="expClock" width="200" height="200"></canvas>
+      <div class="dbig" id="eDig">12:00</div>
+      <div class="wbig" id="eWords">Twelve o'clock</div>
+      <div class="g2" style="width:100%;max-width:350px">
+        <div class="scard"><div style="font-size:.84em;color:#2d6080;margin-bottom:3px">⏰ Hour</div><div class="rw"><input type="range" min="0" max="11" value="0" id="eH" step="1" oninput="updExp()"><div class="rv" id="eHv">12</div></div></div>
+        <div class="scard"><div style="font-size:.84em;color:#2d6080;margin-bottom:3px">🟢 Minutes</div><div class="rw"><input type="range" min="0" max="59" value="0" id="eM" step="1" oninput="updExp()"><div class="rv" id="eMv">00</div></div></div>
+      </div>
+      <div class="fc"><button class="bb" onclick="setExp(3,0)">3:00</button><button class="bb" onclick="setExp(6,30)">6:30</button><button class="bb" onclick="setExp(9,15)">9:15</button><button class="bb" onclick="setExp(11,45)">11:45</button></div>
+      <button class="bb gd" onclick="sayExp()">🔊 Say this time!</button>
+    </div>
+  </div>
+  <div class="sp" id="cl-both">
+    <div class="g2">
+      <div class="ic" onclick="say('An analogue clock has a round face with twelve numbers and moving hands! Short hand for hours, long hand for minutes!')"><span class="ii">🕐</span><span class="it">Analogue Clock</span><span class="iv">Round face, moving hands! 🌀</span></div>
+      <div class="ic" onclick="say('A digital clock shows time as numbers! Like seven forty two! On twenty four hour time, three P M is fifteen hundred!')"><span class="ii">💻</span><span class="it">Digital Clock</span><span class="iv">Shows numbers! <span id="digNow" style="font-family:'Fredoka One'">00:00</span></span></div>
+      <div class="ic" onclick="say('Twelve A M is midnight! The very middle of the night! A new day begins!')"><span class="ii">🌙</span><span class="it">12:00 AM</span><span class="iv">Midnight! 😴</span></div>
+      <div class="ic" onclick="say('Twelve P M is noon! The middle of the day! The sun is highest! A M becomes P M right now!')"><span class="ii">🌞</span><span class="it">12:00 PM</span><span class="iv">Noon! ☀️</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALOGUE MASTER -->
+<div class="panel" id="p-analog">
+  <div class="esay"><div class="eface" onclick="say('This is the Analogue Master! Drag the green minute hand around the clock! Watch the digital time and words update as you move it!')">👸</div><div class="espeech">Drag the green hand! Watch everything change! 🎉</div></div>
+  <div class="strow">
+    <button class="st on" onclick="gsub('analog','inter',this)">🖐️ Try It!</button>
+    <button class="st" onclick="gsub('analog','ex',this)">🕐 Examples</button>
+    <button class="st" onclick="gsub('analog','ampm',this)">☀️🌙 AM &amp; PM</button>
+    <button class="st" onclick="gsub('analog','hguide',this)">📏 Hand Guide</button>
+  </div>
+  <div class="sp on" id="an-inter">
+    <div style="display:grid;grid-template-columns:208px 1fr;gap:11px;align-items:start">
+      <div class="czone">
+        <canvas id="mainClock" width="206" height="206" style="cursor:grab;touch-action:none"></canvas>
+        <div class="drag-hint">☝️ Drag the green hand!</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="background:#e1f5fe;border-radius:15px;padding:11px;text-align:center;border:3px solid #a8d8ea">
+          <div class="dbig" style="font-size:1.75em;padding:5px 11px" id="mDig">12:00</div>
+          <div style="margin-top:5px;display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap">
+            <span class="ampb" style="font-size:.9em;padding:3px 12px" id="mAMPM">AM</span>
+            <span style="font-size:.8em;color:#2d6080">24hr: <strong id="m24" style="color:#4a90b8">00:00</strong></span>
+          </div>
+        </div>
+        <div class="wbig" style="font-size:1.15em" id="mWords">Twelve o'clock</div>
+        <div class="rw"><div style="width:12px;height:12px;border-radius:50%;background:#3C3489;flex-shrink:0"></div><div style="font-size:.84em;color:#2d6080;min-width:84px">Hour hand</div><div id="mHr" style="font-size:.82em;color:#1a3a4a;background:#c8e8f5;border-radius:6px;padding:2px 6px">near 12</div></div>
+        <div class="rw"><div style="width:12px;height:12px;border-radius:50%;background:#1D9E75;flex-shrink:0"></div><div style="font-size:.84em;color:#2d6080;min-width:84px">Minute hand</div><div id="mMn" style="font-size:.82em;color:#1a3a4a;background:#c8e8f5;border-radius:6px;padding:2px 6px">at 12=0 min</div></div>
+        <div class="scard"><div style="font-size:.82em;color:#2d6080;margin-bottom:3px">⏰ Change Hour</div><div class="rw"><input type="range" min="0" max="23" value="0" id="mHSl" step="1" oninput="onHSl(this.value)"><div class="rv" id="mHSO">0</div></div></div>
+        <div class="scard"><div style="font-size:.82em;color:#2d6080;margin-bottom:3px">⚡ Jump to a time</div><div class="pr-row" id="presets"></div></div>
+        <button class="bb" onclick="sayMain()">🔊 Say the time!</button>
+      </div>
+    </div>
+  </div>
+  <div class="sp" id="an-ex">
+    <div class="strow" id="ex-filters">
+      <button class="st on" onclick="filtEx('all',this)">All</button>
+      <button class="st" onclick="filtEx('oclock',this)">O'Clock</button>
+      <button class="st" onclick="filtEx('half',this)">Half Past</button>
+      <button class="st" onclick="filtEx('quarter',this)">Quarter</button>
+      <button class="st" onclick="filtEx('am',this)">☀️ AM</button>
+      <button class="st" onclick="filtEx('pm',this)">🌙 PM</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="max-height:430px;overflow-y:auto"><div class="ex-g" id="exGrid"></div></div>
+      <div><div style="background:#e1f5fe;border-radius:16px;border:3px solid #a8d8ea;padding:12px;display:flex;flex-direction:column;align-items:center;gap:7px">
+        <canvas id="exClock" width="142" height="142"></canvas>
+        <div class="dbig" style="font-size:1.3em;padding:4px 11px" id="exDig">—</div>
+        <div class="wbig" style="font-size:.98em;width:100%" id="exWrd">Pick a time 👈</div>
+        <div id="exAP" style="font-size:.9em"></div>
+        <div id="exEx" style="font-size:.74em;color:#2d6080;font-family:'Nunito',sans-serif;font-weight:700;line-height:1.5;border-top:2px solid #a8d8ea;padding-top:7px;width:100%"></div>
+        <button class="bb" style="font-size:.88em;padding:6px 13px" onclick="sayEx()">🔊 Hear it!</button>
+      </div></div>
+    </div>
+  </div>
+  <div class="sp" id="an-ampm">
+    <div class="esay"><div class="eface" onclick="say('A M means morning time from midnight to noon! P M means afternoon and night from noon to midnight!')">👸</div><div class="espeech">Tap me or any card to learn AM and PM! ☀️🌙</div></div>
+    <div class="tl-b"><div class="tl-am"><div style="font-size:1.1em;font-weight:700;color:#0C447C">☀️ AM</div><div style="font-size:.7em;font-family:'Nunito',sans-serif;font-weight:700;color:#0C447C">Midnight → Noon</div></div><div class="tl-pm"><div style="font-size:1.1em;font-weight:700;color:#633806">🌙 PM</div><div style="font-size:.7em;font-family:'Nunito',sans-serif;font-weight:700;color:#633806">Noon → Midnight</div></div></div>
+    <div class="g3">
+      <div class="ic" onclick="say('Twelve A M is midnight! The very start of the day! Completely dark and everyone is sleeping!')"><span class="ii">🌙</span><span class="it">12 AM</span><span class="iv">Midnight 😴</span></div>
+      <div class="ic" onclick="say('Seven A M is morning! Time to wake up and have breakfast and go to school!')"><span class="ii">🌅</span><span class="it">7 AM</span><span class="iv">Wake up! 🐓</span></div>
+      <div class="ic" onclick="say('Twelve P M is noon! The middle of the day! Lunchtime! A M ends and P M begins right now!')"><span class="ii">🌞</span><span class="it">12 PM</span><span class="iv">Noon! 🥪</span></div>
+      <div class="ic" onclick="say('Three P M is afternoon! School might be finishing! Time to play outside!')"><span class="ii">⛹️</span><span class="it">3 PM</span><span class="iv">Play time! 🎉</span></div>
+      <div class="ic" onclick="say('Six P M is evening! Dinner time! The sun is setting in the sky!')"><span class="ii">🍝</span><span class="it">6 PM</span><span class="iv">Dinner! 🌇</span></div>
+      <div class="ic" onclick="say('Nine P M is night time! Bedtime! Brush your teeth and have sweet dreams!')"><span class="ii">🛏️</span><span class="it">9 PM</span><span class="iv">Bedtime! 😴</span></div>
+    </div>
+    <div class="fc" style="margin-top:9px"><button class="bb" onclick="say('Remember! A M is before noon and means morning! P M is after noon and means afternoon and night!')">🔊 Remember AM &amp; PM!</button></div>
+  </div>
+  <div class="sp" id="an-hguide">
+    <div class="g2">
+      <div class="ic" onclick="say('The hour hand is SHORT and THICK! It points to the hour number! It takes twelve whole hours to go all the way around!')"><span class="ii">🦴</span><span class="it" style="color:#3C3489">Hour Hand</span><span class="iv">SHORT &amp; THICK 🔵<br>12 hrs per circle</span></div>
+      <div class="ic" onclick="say('The minute hand is LONG and THIN! It goes all the way around in sixty minutes! Count by fives from the twelve!')"><span class="ii">📏</span><span class="it" style="color:#1D9E75">Minute Hand</span><span class="iv">LONG &amp; THIN 🟢<br>60 mins per circle</span></div>
+    </div>
+    <div class="scard" style="margin-top:9px"><div style="font-size:.92em;color:#2d6080;margin-bottom:5px;text-align:center">🔢 Where the long hand points = how many minutes!</div><div class="mr" id="minRing"></div></div>
+    <div class="g2" style="margin-top:9px">
+      <div class="ic" onclick="say('Long hand at twelve means zero minutes! O clock!')"><span class="ii">☝️</span><span class="it">At 12</span><span class="iv">= 0 mins, O'clock!</span></div>
+      <div class="ic" onclick="say('Long hand at three means fifteen minutes! Quarter past!')"><span class="ii">👉</span><span class="it">At 3</span><span class="iv">= 15 mins, Quarter past!</span></div>
+      <div class="ic" onclick="say('Long hand at six means thirty minutes! Half past!')"><span class="ii">👇</span><span class="it">At 6</span><span class="iv">= 30 mins, Half past!</span></div>
+      <div class="ic" onclick="say('Long hand at nine means forty five minutes! Quarter to!')"><span class="ii">👈</span><span class="it">At 9</span><span class="iv">= 45 mins, Quarter to!</span></div>
+    </div>
+    <div class="fc" style="margin-top:9px"><button class="bb" onclick="say('Three steps to read a clock! One, short hand for the hour! Two, count by fives from twelve with the long hand for the minutes! Three, say the time!')">🔊 How to read a clock!</button></div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="panel" id="p-quiz">
+  <div class="esay"><div class="eface" onclick="say('Quiz time! I will ask a question! Listen carefully and tap the right answer! You can do it!')">👸</div><div class="espeech">Listen and tap the right answer! 🎯</div></div>
+  <div class="fc" style="margin-bottom:7px"><div class="pill">⭐ <span id="qSc">0</span></div><div class="pill">Q <span id="qN">1</span> / 10</div></div>
+  <div class="pbar"><div class="pf" id="qPr" style="width:10%"></div></div>
+  <div id="qCont">
+    <div class="fb" style="cursor:pointer;font-size:1.25em" onclick="sayQ()">🔊 Tap to hear the question!</div>
+    <div style="display:flex;justify-content:center;margin:6px 0"><canvas id="qClock" width="148" height="148" style="display:none"></canvas></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="fb" id="qFb"></div>
+    <div class="fc"><button class="bb gd" id="qNext" onclick="nextQ()" style="display:none;font-size:1.1em">Next ➡️</button></div>
+  </div>
+  <div id="qEnd" style="display:none"><div class="comp"><span class="tr" id="qTr">🏆</span><div class="ms2">You got <span id="qFin">0</span> / 10! ⭐</div><div class="esay" style="margin:10px 0"><div class="eface">👸</div><div class="espeech" id="qMsg">Amazing!</div></div><button class="bb gd" onclick="startQuiz()">🔄 Play Again!</button></div></div>
+</div>
+
+<!-- GAMES -->
+<div class="panel" id="p-game">
+  <div class="strow">
+    <button class="st on" onclick="gsub('game','wti',this)">🕐 What Time?</button>
+    <button class="st" onclick="gsub('game','set',this)">🎯 Set Clock!</button>
+    <button class="st" onclick="gsub('game','mem',this)">🧠 Memory!</button>
+    <button class="st" onclick="gsub('game','story',this)">📖 Time Stories</button>
+  </div>
+  <div class="sp on" id="gm-wti">
+    <div class="esay"><div class="eface" onclick="say(wtiSp||'What time is on the clock?')">👸</div><div class="espeech" id="wtiMsg">What time does the clock show? Tap the right answer!</div></div>
+    <div style="display:flex;justify-content:center"><canvas id="wtiClock" width="180" height="180"></canvas></div>
+    <div class="fc" style="margin:5px 0"><button class="bb pp" onclick="say(wtiSp||'What time?')">🔊 Hear question!</button></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:400px;margin:6px auto" id="wtiOpts"></div>
+    <div class="fb" id="wtiFb"></div>
+    <div class="fc"><button class="bb gd" id="wtiNext" onclick="nextWTI()" style="display:none">Next! ➡️</button><div class="pill">🔥 Streak: <span id="wtiStr">0</span></div></div>
+  </div>
+  <div class="sp" id="gm-set">
+    <div class="esay"><div class="eface" onclick="saySCT()">👸</div><div class="espeech" id="scMsg">Move the sliders to set the clock to the right time!</div></div>
+    <div class="fc"><button class="bb pp" onclick="saySCT()">🔊 Hear the time!</button></div>
+    <div style="font-size:1.75em;text-align:center;background:#e1f5fe;border-radius:13px;padding:7px;margin:6px 0;border:3px solid #a8d8ea" id="scTgt">Set to 3:00 🕒</div>
+    <div class="czone">
+      <canvas id="scClock" width="178" height="178"></canvas>
+      <div style="width:100%;max-width:340px">
+        <div style="font-size:.86em;color:#2d6080;margin:3px 0">⏰ Hour hand</div>
+        <div class="rw"><input type="range" min="1" max="12" value="12" id="scH" step="1" oninput="updSC()"><div class="rv" id="scHv">12</div></div>
+        <div style="font-size:.86em;color:#2d6080;margin:6px 0 3px">🟢 Minute hand</div>
+        <div class="rw"><input type="range" min="0" max="59" value="0" id="scM" step="1" oninput="updSC()"><div class="rv" id="scMv">00</div></div>
+      </div>
+      <button class="bb gn" onclick="chkSC()">✅ Check it!</button>
+      <div class="fb" id="scFb"></div>
+    </div>
+  </div>
+  <div class="sp" id="gm-mem">
+    <div class="esay"><div class="eface" onclick="say('Match the clock face to the right digital time! Tap two cards and find the pairs!')">👸</div><div class="espeech">Match each clock to its time! Find all pairs! 🧠</div></div>
+    <div class="mg" id="memGrid"></div>
+    <div class="fc" style="margin-top:7px"><div class="pill">Moves: <span id="memMv">0</span></div><div class="pill" style="background:rgba(76,175,125,.28)">Pairs: <span id="memPr">0</span>/5</div><button class="bb" onclick="initMem()">🔄 New Game!</button></div>
+    <div class="fb" id="memFb"></div>
+  </div>
+  <div class="sp" id="gm-story">
+    <div class="esay"><div class="eface" onclick="say(tdSp||'Listen to the story!')">👸</div><div class="espeech" id="tdMsg">Listen to the story and pick the answer!</div></div>
+    <div class="fc" style="margin:4px 0"><button class="bb pp" onclick="say(tdSp||'Story time!')">🔊 Hear the story!</button></div>
+    <div style="background:linear-gradient(135deg,#e1f5fe,#ede8f6);border-radius:16px;padding:13px;font-size:1em;color:#1a3a4a;line-height:1.6;margin-bottom:8px;border:3px solid #b39ddb" id="tdStory">Loading...</div>
+    <div class="opts" id="tdOpts"></div>
+    <div class="fb" id="tdFb"></div>
+    <div class="fc"><button class="bb gd" id="tdNext" onclick="nextTD()" style="display:none">Next! ➡️</button><div class="pill">⭐ <span id="tdSc">0</span></div></div>
+  </div>
+</div>
+
+<!-- MINI GAMES -->
+<div class="panel" id="p-mini">
+  <div class="esay"><div class="eface" onclick="say('Mini games time! Four super fun games! Pop balloons, put the day in order, guess what time of day, and spin the clock!')">👸</div><div class="espeech">Pick a fun mini game! 🎪</div></div>
+  <div class="strow">
+    <button class="st on" onclick="gsub('mini','balloon',this)">🎈 Pop Balloons!</button>
+    <button class="st" onclick="gsub('mini','order',this)">🌅 Day Order</button>
+    <button class="st" onclick="gsub('mini','activity',this)">🤔 What Am I Doing?</button>
+    <button class="st" onclick="gsub('mini','spin',this)">⏰ Spin The Clock!</button>
+  </div>
+  <div class="sp on" id="mn-balloon">
+    <div class="esay"><div class="eface" onclick="say('Pop the balloon with the right time on it! Listen to hear which time to find!')">👸</div><div class="espeech" id="ballMsg">Pop the balloon showing the right time! 🎈</div></div>
+    <div style="font-size:1.5em;text-align:center;background:#e1f5fe;border-radius:12px;padding:7px;border:3px solid #a8d8ea;margin-bottom:7px" id="ballTgt">Loading...</div>
+    <div class="fc" style="margin-bottom:5px"><button class="bb pp" onclick="sayBall()">🔊 Hear the time!</button></div>
+    <div class="bzone" id="ballZone"></div>
+    <div class="fc" style="margin-top:7px"><div class="pill">⭐ Score: <span id="ballSc">0</span></div><button class="bb gd" onclick="nextBall()">Next Round! 🎈</button></div>
+    <div class="fb" id="ballFb"></div>
+  </div>
+  <div class="sp" id="mn-order">
+    <div class="esay"><div class="eface" onclick="say('Tap the daily activities in the right order! Start with the very first thing in the morning and end with the last thing at night!')">👸</div><div class="espeech">Tap in order from morning to night! 🌅➡️🌙</div></div>
+    <div style="font-size:.96em;color:#2d6080;text-align:center;margin-bottom:7px">Tap activities in order from FIRST to LAST! 👇</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center" id="orderCards"></div>
+    <div style="font-size:.9em;color:#2d6080;text-align:center;margin:6px 0">Your order so far:</div>
+    <div style="min-height:50px;background:#f5f5f5;border-radius:12px;border:3px dashed #a8d8ea;padding:8px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center" id="orderResult"><span style="color:#aaa;font-size:.9em">Tap activities above ↑</span></div>
+    <div class="fb" id="orderFb"></div>
+    <div class="fc" style="margin-top:7px"><button class="bb gd" onclick="initOrder()">🔄 New Round!</button><button class="bb gn" onclick="checkOrder()">✅ Check!</button></div>
+  </div>
+  <div class="sp" id="mn-activity">
+    <div class="esay"><div class="eface" onclick="say('Look at the picture and listen to the clue! Is this morning, afternoon, evening, or night time?')">👸</div><div class="espeech">Look and listen! What time of day is this? 🤔</div></div>
+    <div class="act-card">
+      <span style="font-size:3.8em;display:block;margin-bottom:7px" id="actIco">🥞</span>
+      <div style="font-size:1.4em;color:#2d6080;margin-bottom:5px" id="actName">Eating breakfast!</div>
+      <div style="font-size:.86em;color:#5d4037" id="actHint">When do we eat breakfast?</div>
+    </div>
+    <div class="fc"><button class="bb pp" onclick="sayAct()">🔊 Hear the clue!</button></div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0" id="actOpts"></div>
+    <div class="fb" id="actFb"></div>
+    <div class="fc"><button class="bb gd" id="actNext" onclick="nextAct()" style="display:none">Next! ➡️</button><div class="pill">⭐ <span id="actSc">0</span></div></div>
+  </div>
+  <div class="sp" id="mn-spin">
+    <div class="esay"><div class="eface" onclick="say('I will say a time! You drag the green minute hand on the clock to show that time! Ready? Let us go!')">👸</div><div class="espeech">Drag the green hand to show the time I say! ⏰</div></div>
+    <div class="czone">
+      <div style="text-align:center">
+        <div style="font-size:.88em;color:#2d6080;margin-bottom:3px">Show this time:</div>
+        <div class="tgt-t" id="spinTgt">3:00</div>
+        <div class="spin-hint" id="spinHint">Drag the 🟢 green hand!</div>
+      </div>
+      <canvas id="spinClock" width="215" height="215" style="cursor:grab;touch-action:none"></canvas>
+      <div style="font-size:1.05em;color:#2d6080;background:#e1f5fe;border-radius:10px;padding:5px 13px;border:2px solid #a8d8ea">Your time: <strong id="spinYours" style="color:#4a90b8">12:00</strong></div>
+      <div class="fc"><button class="bb pp" onclick="saySpinTgt()">🔊 Hear the time!</button><button class="bb gn" onclick="chkSpin()">✅ Check!</button></div>
+      <div class="fb" id="spinFb"></div>
+      <div class="fc"><button class="bb gd" id="spinNext" onclick="nextSpin()" style="display:none">Next! ➡️</button><div class="pill">⭐ <span id="spinSc">0</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDAR -->
+<div class="panel" id="p-cal">
+  <div class="esay"><div class="eface" onclick="say('A calendar shows all the days and months! Seven days in a week and twelve months in a year!')">👸</div><div class="espeech">Tap the days and months to hear about them! 📅</div></div>
+  <div class="strow">
+    <button class="st on" onclick="gsub('cal','mth',this)">📅 This Month</button>
+    <button class="st" onclick="gsub('cal','12m',this)">🗓️ 12 Months</button>
+    <button class="st" onclick="gsub('cal','tod',this)">⭐ Today</button>
+  </div>
+  <div class="sp on" id="ca-mth">
+    <div class="fc" style="margin-bottom:7px"><button class="bb" onclick="chgMo(-1)">◀</button><div style="font-size:1.35em;color:#2d6080;min-width:185px;text-align:center" id="calTitle"></div><button class="bb" onclick="chgMo(1)">▶</button></div>
+    <div class="cg" id="calGrid"></div>
+    <div id="calInfo" style="background:#e1f5fe;border-radius:12px;padding:10px;margin-top:7px;font-size:.95em;color:#1a3a4a;display:none"></div>
+  </div>
+  <div class="sp" id="ca-12m"><div class="mo-g" id="mo12"></div></div>
+  <div class="sp" id="ca-tod">
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="ic" style="border:3px solid #26c6da;cursor:pointer" onclick="sayToday()"><span class="ii">📅</span><span class="it">Today is...</span><span class="iv" id="todD" style="font-size:.96em"></span></div>
+      <div class="ic" style="border:3px solid #7b5ea7;cursor:pointer" onclick="sayTom()"><span class="ii">➡️</span><span class="it">Tomorrow will be...</span><span class="iv" id="tomD" style="font-size:.96em"></span></div>
+      <div class="ic" style="border:3px solid #f0c040;cursor:pointer" onclick="sayYes()"><span class="ii">⬅️</span><span class="it">Yesterday was...</span><span class="iv" id="yesD" style="font-size:.96em"></span></div>
+    </div>
+    <div class="g2" style="margin-top:7px">
+      <div class="ic" onclick="say('This month is '+moN[new Date().getMonth()]+'!')"><span class="ii">🗓️</span><span class="it">This Month</span><span class="iv" id="thisMo"></span></div>
+      <div class="ic" onclick="say('The year is '+new Date().getFullYear()+'!')"><span class="ii">🎂</span><span class="it">This Year</span><span class="iv" id="thisYr"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEASONS -->
+<div class="panel" id="p-seas">
+  <div class="esay"><div class="eface" onclick="say('There are four seasons! In Australia, summer is in December and winter is in June! That is different to many other countries! Press the buttons to switch!')">👸</div><div class="espeech">🌏 Australian seasons shown! Switch below! ❄️</div></div>
+  <div class="hemi-row">
+    <button class="hb on" id="hAU" onclick="setHemi('AU')">🌏 Australia</button>
+    <button class="hb" id="hNH" onclick="setHemi('NH')">🌍 Northern Hemisphere</button>
+  </div>
+  <div class="hnote" id="hnote">🌏 Australia — Summer in December! Christmas = hot &amp; sunny! 🎄☀️</div>
+  <div class="sea-g" id="seasGrid"></div>
+  <div id="seasInfo" style="background:#e8eaf6;border-radius:14px;padding:12px;margin-top:10px;font-size:1em;color:#1a3a4a;line-height:1.6;display:none"></div>
+  <div class="g2" style="margin-top:10px">
+    <div class="ic" onclick="say('In Australia, the seasons are the opposite of Europe! When Australia has summer in December, Europe and Canada have winter! Australians swim at the beach on Christmas Day!')"><span class="ii">🌏</span><span class="it">Why Different?</span><span class="iv">Australia = summer in Dec! Europe = winter in Dec!</span></div>
+    <div class="ic" onclick="say('Seasons happen because the Earth tilts as it goes around the sun! The top half and bottom half of Earth get opposite seasons!')"><span class="ii">🌍</span><span class="it">Why Seasons?</span><span class="iv">Earth tilts around the sun! Top and bottom get opposites!</span></div>
+  </div>
+</div>
+
+<!-- DAY & NIGHT -->
+<div class="panel" id="p-dn">
+  <div class="esay"><div class="eface" onclick="say('Slide the slider to travel through the whole day! From midnight all the way around!')">👸</div><div class="espeech">Slide to travel through the day! 🌅➡️🌙</div></div>
+  <div class="dn-s sc-m" id="dnSc"><div style="font-size:3.4em" id="dnIco">🌅</div><div style="font-size:1.75em" id="dnNm">Good Morning!</div><div style="font-size:.88em;line-height:1.5;max-width:278px" id="dnDs">The sun is rising! Time for breakfast! 🥞</div></div>
+  <div style="max-width:420px;margin:8px auto">
+    <input type="range" min="0" max="23" value="7" id="dnSl" style="width:100%;height:10px;accent-color:#4a90b8" step="1" oninput="updDN(this.value)">
+    <div style="display:flex;justify-content:space-between;font-size:.86em;color:#a8d8ea;margin-top:2px"><span>🌙 12am</span><span>🌅 6am</span><span>🌞 12pm</span><span>🌆 6pm</span><span>🌙 11pm</span></div>
+    <div style="text-align:center;font-size:1.75em;color:#d6f0fb;margin-top:6px" id="dnHr">7:00 AM</div>
+    <div class="fc" style="margin-top:6px"><button class="bb" onclick="sayDN()">🔊 What time is this?</button></div>
+  </div>
+  <div class="g2" style="margin-top:10px">
+    <div class="ic" onclick="say('Morning is from six A M to noon!')"><span class="ii">🌅</span><span class="it">Morning</span><span class="iv">6am – 12pm 🎒</span></div>
+    <div class="ic" onclick="say('Afternoon is from noon to about six P M!')"><span class="ii">☀️</span><span class="it">Afternoon</span><span class="iv">12pm – 6pm 🎉</span></div>
+    <div class="ic" onclick="say('Evening is from about six P M to nine P M!')"><span class="ii">🌆</span><span class="it">Evening</span><span class="iv">6pm – 9pm 🍝</span></div>
+    <div class="ic" onclick="say('Night time is from nine P M all the way to six A M!')"><span class="ii">🌙</span><span class="it">Night</span><span class="iv">9pm – 6am 😴</span></div>
+  </div>
+</div>
+
+<!-- ASK ELSA -->
+<div class="panel" id="p-elsa">
+  <div class="esay"><div class="eface" onclick="say('Hello! I am Queen Elsa of Arendelle! Ask me anything about time! I will answer out loud for you!')">👸</div><div class="espeech">Ask me anything about time! 👸❄️</div></div>
+  <div class="ch-hist" id="chatH"></div>
+  <div class="ci"><input id="elsaI" placeholder="Ask Elsa..." onkeydown="if(event.key==='Enter')askE()"><button class="bb" onclick="askE()">Ask! ❄️</button></div>
+  <div class="qbg">
+    <button class="qb" onclick="qA('What is a clock?')">⏰ What is a clock?</button>
+    <button class="qb" onclick="qA('How many hours in a day?')">🔢 Hours in a day?</button>
+    <button class="qb" onclick="qA('What are the seasons in Australia?')">🌏 Australia seasons?</button>
+    <button class="qb" onclick="qA('What is AM and PM?')">☀️ AM and PM?</button>
+    <button class="qb" onclick="qA('What is half past?')">🕧 Half past?</button>
+    <button class="qb" onclick="qA('What are the months?')">📅 The months?</button>
+    <button class="qb" onclick="qA('How do I read a clock?')">🎯 Read a clock?</button>
+    <button class="qb" onclick="qA('What time is bedtime?')">🛏️ Bedtime?</button>
+    <button class="qb" onclick="qA('Tell me about Anna and Olaf')">⛄ Anna and Olaf?</button>
+    <button class="qb" onclick="qA('What is morning afternoon evening night?')">🌅 Parts of day?</button>
+  </div>
+</div>
+</div>
+
+<script>
+const TAU=Math.PI*2,P2=n=>String(n).padStart(2,'0');
+const moN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const moIc=['🌨️','❤️','🌷','🐣','🌼','☀️','🌊','🍦','🍂','🎃','🍁','⛄'];
+const moSp=['January is month one! In Australia this is hot summer!','February is month two! Only twenty eight days, or twenty nine in a leap year!','March is month three! In Australia autumn begins!','April is month four! Easter often happens in April!','May is month five! Getting cooler in Australia as winter approaches!','June is month six! Winter in Australia! Summer in Europe!','July is month seven! The coldest month in Australia!','August is month eight! Winter nearly over in Australia!','September is month nine! Spring begins in Australia!','October is month ten! Beautiful spring in Australia!','November is month eleven! Getting hot in Australia as summer approaches!','December is month twelve! Summer and Christmas in Australia!'];
+
+let totS=0,totP=0,mainH=0,mainM=0,isDrag=false,lInt,exFilt='all',curExSp='',scTgts=[{h:3,m:0},{h:6,m:30},{h:9,m:15},{h:12,m:0},{h:7,m:45},{h:1,m:30},{h:10,m:15},{h:4,m:0}],scI=0,tdI=0,tdSc=0,tdSp='',memFl=[],memMa=[],memMv=0,wtiStr=0,wtiSp='',calY=new Date().getFullYear(),calMo=new Date().getMonth(),qBnk=[],qI=0,qSc=0,curQSp='',dnHr=7,hemi='AU',ballSc=0,ballCorrect='',ballSp='',actSc=0,actI=0,actSp='',spinSc=0,spinI=0,spinH=12,spinM=0,spinTH=3,spinTM=0,spinDrag=false,orderSel=[],orderCorrect=[];
+
+function makeSnow(){const c=document.getElementById('sf'),f='❄✦❋✧❅';for(let i=0;i<20;i++){const s=document.createElement('i');s.className='fl';s.textContent=f[i%5];s.style.cssText=`left:${Math.random()*100}%;animation-duration:${5+Math.random()*10}s;animation-delay:${Math.random()*10}s;font-size:${.8+Math.random()*1.4}em`;c.appendChild(s);}}
+let sVoice=null;
+function loadVoice(){const vs=speechSynthesis.getVoices();sVoice=vs.find(v=>/female|samantha|karen|zira|victoria|fiona/i.test(v.name))||vs.find(v=>v.lang.startsWith('en'))||vs[0];}
+if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=loadVoice;
+setTimeout(loadVoice,500);
+function say(t){if(!t||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=.88;u.pitch=1.15;u.volume=1;if(sVoice)u.voice=sVoice;speechSynthesis.speak(u);}
+function burst(x,y){const s=document.createElement('span');s.className='stb';s.textContent=['⭐','✨','🌟','💫','❄️'][Math.floor(Math.random()*5)];s.style.cssText=`left:${x-16}px;top:${y-16}px`;document.body.appendChild(s);setTimeout(()=>s.remove(),900);}
+function addStar(x,y){totS++;totP+=10;document.getElementById('tot-s').textContent=totS;document.getElementById('tot-p').textContent=totP;const lv=['🌟 Explorer','⭐ Learner','🌙 Time Wizard','❄️ Clock Master','👑 Ice Queen!'];document.getElementById('lvl').textContent=lv[Math.min(Math.floor(totS/5),4)];if(x)burst(x,y);}
+
+const PANELS=['learn','clock','analog','quiz','game','mini','cal','seas','dn','elsa'];
+function go(nm,btn){PANELS.forEach(p=>{const el=document.getElementById('p-'+p);if(el)el.classList.remove('on');});document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));const p=document.getElementById('p-'+nm);if(p)p.classList.add('on');if(btn)btn.classList.add('on');
+if(nm==='clock')startLive();else stopLive();
+if(nm==='quiz')startQuiz();
+if(nm==='game'){nextWTI();loadSCT();initMem();nextTD();}
+if(nm==='mini'){nextBall();initOrder();nextAct();nextSpin();initSpinClock();}
+if(nm==='cal'){renCal();renToday();renMo12();}
+if(nm==='dn')updDN(7);
+if(nm==='analog'){initMain();buildPresets();buildExGrid();buildMinRing();}
+if(nm==='learn'){buildDays();buildMonths();}
+if(nm==='seas')renderSeas();}
+
+const SMAPS={learn:['parts','words','units','days7','months12'],analog:['inter','ex','ampm','hguide'],game:['wti','set','mem','story'],mini:['balloon','order','activity','spin'],cal:['mth','12m','tod'],clock:['live','explore','both']};
+const SPRFX={learn:'l-',analog:'an-',game:'gm-',mini:'mn-',cal:'ca-',clock:'cl-'};
+function gsub(g,s,btn){const list=SMAPS[g]||[];const pfx=SPRFX[g]||'';list.forEach(k=>{const e=document.getElementById(pfx+k);if(e)e.classList.remove('on');});const t=document.getElementById(pfx+s);if(t)t.classList.add('on');const panel=document.getElementById('p-'+g);if(panel){panel.querySelectorAll('.strow>.st').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');}
+if(g==='clock'&&s==='live')startLive();if(g==='clock'&&s!=='live')stopLive();
+if(g==='analog'&&s==='ex')setTimeout(()=>{const f=document.querySelector('#exGrid .ec');if(f)f.click();},70);
+if(g==='mini'&&s==='balloon')nextBall();
+if(g==='mini'&&s==='order')initOrder();
+if(g==='mini'&&s==='activity')nextAct();
+if(g==='mini'&&s==='spin'){nextSpin();initSpinClock();}}
+
+function drawClock(id,H,M,sec,opt){const cv=document.getElementById(id);if(!cv)return;const ctx=cv.getContext('2d'),W=cv.width,r=W/2-6,cx=W/2,cy=W/2;ctx.clearRect(0,0,W,W);const g=ctx.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,'#f0faff');g.addColorStop(1,'#d6f0fb');ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.fillStyle=g;ctx.fill();ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.strokeStyle='#4a90b8';ctx.lineWidth=3;ctx.stroke();for(let i=0;i<60;i++){const a=(i/60)*TAU-Math.PI/2,iM=i%5===0;ctx.beginPath();ctx.moveTo(cx+(r-(iM?13:6))*Math.cos(a),cy+(r-(iM?13:6))*Math.sin(a));ctx.lineTo(cx+(r-2)*Math.cos(a),cy+(r-2)*Math.sin(a));ctx.strokeStyle=iM?'#2d6080':'#a8d8ea';ctx.lineWidth=iM?2.5:1;ctx.stroke();}ctx.fillStyle='#1a3a4a';ctx.textAlign='center';ctx.textBaseline='middle';const fs=Math.round(r*.18);ctx.font=`700 ${fs}px Fredoka One,cursive`;for(let i=1;i<=12;i++){const a=(i/12)*TAU-Math.PI/2,nr=r-21;ctx.fillText(i,cx+nr*Math.cos(a),cy+nr*Math.sin(a));}const hw=opt&&opt.hw?opt.hw:6,mw=opt&&opt.mw?opt.mw:3.5;const hA=((H%12+M/60)/12)*TAU-Math.PI/2,mA=(M/60)*TAU-Math.PI/2;function hand(a,l,w,c){ctx.beginPath();ctx.moveTo(cx-(l*.17)*Math.cos(a),cy-(l*.17)*Math.sin(a));ctx.lineTo(cx+l*Math.cos(a),cy+l*Math.sin(a));ctx.strokeStyle=c;ctx.lineWidth=w;ctx.lineCap='round';ctx.stroke();}hand(hA,r*.5,hw,'#3C3489');hand(mA,r*.73,mw,'#1D9E75');if(sec!==undefined){const sA=(sec/60)*TAU-Math.PI/2;ctx.beginPath();ctx.moveTo(cx-r*.14*Math.cos(sA),cy-r*.14*Math.sin(sA));ctx.lineTo(cx+r*.76*Math.cos(sA),cy+r*.76*Math.sin(sA));ctx.strokeStyle='#ef7c8e';ctx.lineWidth=1.8;ctx.stroke();}ctx.beginPath();ctx.arc(cx,cy,5.5,0,TAU);ctx.fillStyle='#4a90b8';ctx.fill();ctx.beginPath();ctx.arc(cx,cy,3,0,TAU);ctx.fillStyle='#fff';ctx.fill();}
+
+// ── FIXED t2w: "X to Y" now correctly names the NEXT hour ──
+// HN has 13 entries so index 12 = 'twelve' (handles 11→12 rollover)
+const HN=['twelve','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
+function t2w(h12,m){
+  const cur=HN[h12];           // current hour name  (h12 is 1–12)
+  const next=HN[h12%12+1];    // next hour name      (wraps 12→1 correctly)
+  if(m===0)return `${cur} o'clock`;
+  if(m===15)return `quarter past ${cur}`;
+  if(m===30)return `half past ${cur}`;
+  if(m===45)return `quarter to ${next}`;
+  const nm={5:'five',10:'ten',20:'twenty',25:'twenty-five'};
+  if(m<30)return `${nm[m]||m} past ${cur}`;
+  const to=60-m;
+  return `${nm[to]||to} to ${next}`;   // ← fixed: was "cur", now "next"
+}
+
+function startLive(){stopLive();tickLive();lInt=setInterval(tickLive,1000);}
+function stopLive(){if(lInt)clearInterval(lInt);}
+function tickLive(){const n=new Date(),h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();drawClock('liveClock',h,m,s);const h12=h%12||12,isA=h<12;document.getElementById('lDig').textContent=`${P2(h12)}:${P2(m)}`;const ae=document.getElementById('lAMPM');ae.textContent=isA?'🌅 AM':'🌙 PM';ae.className='ampb '+(isA?'am-s':'pm-s');document.getElementById('lWords').textContent=t2w(h12,m);const pts=[{h:0,i:'🌙',n:'Midnight'},{h:1,i:'🌙',n:'Late Night'},{h:5,i:'🌅',n:'Early Morning'},{h:7,i:'☀️',n:'Morning'},{h:12,i:'🌞',n:'Noon'},{h:13,i:'☀️',n:'Afternoon'},{h:17,i:'🌆',n:'Late Afternoon'},{h:18,i:'🌇',n:'Evening'},{h:21,i:'🌙',n:'Night Time'}];let pt=pts[0];for(const p of pts)if(h>=p.h)pt=p;document.getElementById('lPIco').textContent=pt.i;document.getElementById('lPName').textContent=pt.n;const dn=document.getElementById('digNow');if(dn)dn.textContent=`${P2(h)}:${P2(m)}`;}
+function sayLiveTime(){const n=new Date(),h=n.getHours()%12||12,m=n.getMinutes(),isA=n.getHours()<12;say(`It is ${t2w(h,m)}! That is ${isA?'A M, morning time!':'P M, afternoon or night time!'}`);}
+
+function updExp(){const h=parseInt(document.getElementById('eH').value),m=parseInt(document.getElementById('eM').value);drawClock('expClock',h,m);const h12=h||12;document.getElementById('eDig').textContent=`${P2(h12)}:${P2(m)}`;document.getElementById('eWords').textContent=t2w(h12,m);document.getElementById('eHv').textContent=h12;document.getElementById('eMv').textContent=P2(m);}
+function setExp(h,m){document.getElementById('eH').value=h%12;document.getElementById('eM').value=m;updExp();}
+function sayExp(){const h=parseInt(document.getElementById('eH').value)||12,m=parseInt(document.getElementById('eM').value);say(`The time is ${t2w(h,m)}!`);}
+
+const PRST=[{l:'12 AM',h:0,m:0},{l:'6 AM',h:6,m:0},{l:'9 AM',h:9,m:0},{l:'12 PM',h:12,m:0},{l:'3 PM',h:15,m:0},{l:'6 PM',h:18,m:0},{l:'6:30',h:18,m:30},{l:'9 PM',h:21,m:0}];
+function buildPresets(){const g=document.getElementById('presets');if(!g||g.children.length)return;PRST.forEach(p=>{const b=document.createElement('button');b.className='pb';b.textContent=p.l;b.onclick=()=>{applyMain(p.h,p.m);say(`The time is now ${t2w(p.h%12||12,p.m)}! ${p.h<12?'That is A M, morning!':'That is P M!'}`);};g.appendChild(b);});}
+function applyMain(H,M){mainH=H;mainM=M;drawClock('mainClock',H,M);updMainD();}
+function updMainD(){const h12=mainH%12||12,isA=mainH<12;document.getElementById('mDig').textContent=`${P2(h12)}:${P2(mainM)}`;const ae=document.getElementById('mAMPM');ae.textContent=isA?'☀️ AM':'🌙 PM';ae.className='ampb '+(isA?'am-s':'pm-s');document.getElementById('m24').textContent=`${P2(mainH)}:${P2(mainM)}`;document.getElementById('mWords').textContent=t2w(h12,mainM);document.getElementById('mHr').textContent=`near ${h12}`;const mn=mainM===0?12:Math.ceil(mainM/5);document.getElementById('mMn').textContent=`at ${mn>12?1:mn}=${mainM}min`;document.getElementById('mHSl').value=mainH;document.getElementById('mHSO').textContent=mainH;}
+function onHSl(v){mainH=parseInt(v);document.getElementById('mHSO').textContent=v;applyMain(mainH,mainM);}
+function sayMain(){const h12=mainH%12||12,isA=mainH<12;say(`The time is ${t2w(h12,mainM)}! It is ${isA?'A M, morning!':'P M, afternoon or night!'} On the twenty four hour clock it is ${P2(mainH)} ${P2(mainM)}!`);}
+function initMain(){const cv=document.getElementById('mainClock');if(!cv||cv._i)return;cv._i=true;function getA(e){const r=cv.getBoundingClientRect(),sc=cv.width/r.width,src=e.touches?e.touches[0]:e,x=(src.clientX-r.left)*sc-cv.width/2,y=(src.clientY-r.top)*sc-cv.width/2;return Math.atan2(y,x);}function fromA(a){let d=(a*180/Math.PI+360+90)%360;mainM=Math.round(d/6)%60;drawClock('mainClock',mainH,mainM);updMainD();}cv.addEventListener('mousedown',e=>{isDrag=true;fromA(getA(e));});window.addEventListener('mousemove',e=>{if(isDrag)fromA(getA(e));});window.addEventListener('mouseup',()=>isDrag=false);cv.addEventListener('touchstart',e=>{isDrag=true;fromA(getA(e));e.preventDefault();},{passive:false});cv.addEventListener('touchmove',e=>{if(isDrag){fromA(getA(e));e.preventDefault();}},{passive:false});cv.addEventListener('touchend',()=>isDrag=false);applyMain(0,0);}
+
+const EXS=[
+  {h:12,m:0,cat:['oclock','am'],w:"Twelve o'clock",ex:"Both hands at 12! Midnight or noon!",sp:"Twelve o'clock! Both hands point straight up!"},
+  {h:1,m:0,cat:['oclock','am'],w:"One o'clock",ex:'Short hand at 1, long hand at 12!',sp:"One o'clock!"},
+  {h:3,m:0,cat:['oclock','am'],w:"Three o'clock",ex:'Short hand at 3, long hand at 12!',sp:"Three o'clock!"},
+  {h:6,m:0,cat:['oclock','am'],w:"Six o'clock",ex:'Short hand straight down at 6!',sp:"Six o'clock! Short hand straight down!"},
+  {h:9,m:0,cat:['oclock','am'],w:"Nine o'clock",ex:'Short hand left at 9, long hand at 12!',sp:"Nine o'clock! Short hand to the left!"},
+  {h:3,m:30,cat:['half','am'],w:'Half past three',ex:'Long hand DOWN at 6 = 30 minutes!',sp:"Half past three! Long hand points straight down!"},
+  {h:6,m:30,cat:['half','am'],w:'Half past six',ex:'Long hand at 6! Short hand between 6 and 7!',sp:"Half past six! Long hand at the bottom!"},
+  {h:11,m:30,cat:['half','am'],w:'Half past eleven',ex:'Long hand at 6! Short hand almost at 12!',sp:"Half past eleven! Almost midnight!"},
+  {h:3,m:15,cat:['quarter','am'],w:'Quarter past three',ex:'Long hand RIGHT at 3 = 15 minutes!',sp:"Quarter past three! Long hand to the right!"},
+  {h:9,m:15,cat:['quarter','am'],w:'Quarter past nine',ex:'Long hand at 3 = 15 minutes!',sp:"Quarter past nine!"},
+  {h:3,m:45,cat:['quarter','am'],w:'Quarter to four',ex:'Long hand LEFT at 9 = 45 minutes!',sp:"Quarter to four! Long hand to the left!"},
+  {h:11,m:45,cat:['quarter','am'],w:'Quarter to twelve',ex:'Long hand at 9! Short hand almost at 12!',sp:"Quarter to twelve! Almost the next hour!"},
+  {h:12,m:0,ispm:true,cat:['oclock','pm'],w:"Twelve o'clock NOON!",ex:'Both at 12! PM starts! Lunchtime!',sp:"Twelve noon! P M begins right now!"},
+  {h:3,m:0,ispm:true,cat:['oclock','pm'],w:"Three o'clock PM",ex:'3 PM = 15:00! Afternoon!',sp:"Three o'clock P M! Afternoon time!"},
+  {h:6,m:0,ispm:true,cat:['oclock','pm'],w:"Six o'clock PM",ex:'6 PM = 18:00! Dinner time!',sp:"Six o'clock P M! Dinner time!"},
+  {h:9,m:0,ispm:true,cat:['oclock','pm'],w:"Nine o'clock PM",ex:'9 PM = 21:00! Bedtime!',sp:"Nine o'clock P M! Bedtime!"},
+  {h:6,m:30,ispm:true,cat:['half','pm'],w:'Half past six PM',ex:'6:30 PM = 18:30! Evening!',sp:"Half past six P M! Evening time!"},
+  {h:9,m:45,ispm:true,cat:['quarter','pm'],w:'Quarter to ten PM',ex:'9:45 PM = 21:45! Almost ten!',sp:"Quarter to ten P M!"},
+];
+function filtEx(f,btn){exFilt=f;document.querySelectorAll('#ex-filters>.st').forEach(b=>b.classList.remove('on'));btn.classList.add('on');buildExGrid();setTimeout(()=>{const fc=document.querySelector('#exGrid .ec');if(fc)fc.click();},60);}
+function buildExGrid(){const g=document.getElementById('exGrid');if(!g)return;g.innerHTML='';EXS.forEach((ex,i)=>{if(exFilt!=='all'&&!ex.cat.includes(exFilt))return;const tH=ex.ispm&&ex.h!==12?ex.h+12:(!ex.ispm&&ex.h===12?0:ex.h),h12=tH%12||12,isA=tH<12;const d=document.createElement('div');d.className='ec';d.dataset.i=i;const cv=document.createElement('canvas');cv.width=64;cv.height=64;cv.id='ecv'+i;d.appendChild(cv);d.innerHTML+=`<div style="font-family:'Fredoka One',cursive;font-size:.9em;color:#1a3a4a">${P2(h12)}:${P2(ex.m)}</div><span class="${isA?'am-t':'pm-t'}">${isA?'AM':'PM'}</span><div style="font-size:.62em;color:#2d6080;font-family:'Nunito',sans-serif;font-weight:700;line-height:1.3">${ex.w}</div>`;d.onclick=()=>selEx(i);g.appendChild(d);setTimeout(()=>drawClock('ecv'+i,tH,ex.m,undefined,{hw:3,mw:2}),10);});}
+function selEx(i){document.querySelectorAll('#exGrid .ec').forEach(c=>c.classList.toggle('on',parseInt(c.dataset.i)===i));const ex=EXS[i];const tH=ex.ispm&&ex.h!==12?ex.h+12:(!ex.ispm&&ex.h===12?0:ex.h),h12=tH%12||12,isA=tH<12;drawClock('exClock',tH,ex.m);document.getElementById('exDig').textContent=`${P2(h12)}:${P2(ex.m)}`;document.getElementById('exWrd').textContent=ex.w;document.getElementById('exAP').innerHTML=`<span class="${isA?'am-s':'pm-s'} ampb" style="font-size:.86em;padding:3px 12px">${isA?'☀️ AM':'🌙 PM'}</span> &nbsp;24hr: <strong style="color:#4a90b8">${P2(tH)}:${P2(ex.m)}</strong>`;document.getElementById('exEx').textContent=ex.ex;curExSp=ex.sp;}
+function sayEx(){say(curExSp||'Pick a time!');}
+function buildMinRing(){const r=document.getElementById('minRing');if(!r||r.children.length)return;for(let i=1;i<=12;i++){r.innerHTML+=`<div class="mrc"><span style="font-size:.78em;color:#1a3a4a;display:block">${i}</span><span style="font-size:.62em;color:#2d6080;font-family:'Nunito',sans-serif;font-weight:700;display:block">${P2(i===12?0:i*5)}</span></div>`;}}
+
+const QB=[
+  {tp:'clk',sp:"What time does the clock show?",h:3,m:0,opts:["3 o'clock","6 o'clock","9 o'clock","12 o'clock"],spO:["three o'clock","six o'clock","nine o'clock","twelve o'clock"],c:0},
+  {tp:'clk',sp:"What time is on this clock?",h:6,m:30,opts:['6:00','6:30','7:30','5:30'],spO:['six o clock','half past six','half past seven','half past five'],c:1},
+  {tp:'fct',sp:'How many minutes are in one hour?',opts:['30','60','24','10'],spO:['thirty','sixty','twenty four','ten'],c:1},
+  {tp:'fct',sp:'How many hours are in one day?',opts:['12','24','60','7'],spO:['twelve','twenty four','sixty','seven'],c:1},
+  {tp:'fct',sp:'How many days are in one week?',opts:['5','6','7','10'],spO:['five','six','seven','ten'],c:2},
+  {tp:'fct',sp:'Does A M mean morning or night?',opts:['Night 🌙','Morning 🌅','Afternoon','Evening'],spO:['night time','morning time','afternoon','evening'],c:1},
+  {tp:'clk',sp:'What time does this clock show?',h:9,m:15,opts:['9:45','9:00','9:15','9:30'],spO:['nine forty five','nine o clock','quarter past nine','half past nine'],c:2},
+  {tp:'fct',sp:'What does half past four mean?',opts:['4:15','4:45','4:30','4:00'],spO:['four fifteen','four forty five','four thirty','four o clock'],c:2},
+  {tp:'fct',sp:'In Australia, which season is December?',opts:['Winter ❄️','Spring 🌸','Summer ☀️','Autumn 🍂'],spO:['winter','spring','summer','autumn'],c:2},
+  {tp:'clk',sp:'What time is on this clock?',h:12,m:0,opts:["12 o'clock","3 o'clock","6 o'clock","9 o'clock"],spO:["twelve o'clock","three o'clock","six o'clock","nine o'clock"],c:0},
+];
+function startQuiz(){qBnk=[...QB].sort(()=>Math.random()-.5);qI=0;qSc=0;document.getElementById('qSc').textContent=0;document.getElementById('qN').textContent=1;document.getElementById('qEnd').style.display='none';document.getElementById('qCont').style.display='block';showQ();}
+function showQ(){if(qI>=qBnk.length){endQ();return;}const q=qBnk[qI];curQSp=q.sp;document.getElementById('qPr').style.width=((qI+1)/10*100)+'%';document.getElementById('qN').textContent=qI+1;document.getElementById('qFb').textContent='';document.getElementById('qFb').className='fb';document.getElementById('qNext').style.display='none';const cc=document.getElementById('qClock');if(q.tp==='clk'){cc.style.display='block';drawClock('qClock',q.h,q.m);}else cc.style.display='none';const op=document.getElementById('qOpts');op.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='ob';b.textContent=o;b.onclick=e=>{op.querySelectorAll('.ob').forEach(x=>x.onclick=null);say(q.spO[i]);chkQ(i,q.c,op,e);};op.appendChild(b);});setTimeout(()=>say(q.sp),260);}
+function sayQ(){say(curQSp);}
+function chkQ(ch,c,op,e){op.querySelectorAll('.ob')[c].classList.add('ok');const fb=document.getElementById('qFb');if(ch===c){fb.innerHTML='⭐ YES! Amazing! ⭐';fb.className='fb ok';qSc++;document.getElementById('qSc').textContent=qSc;addStar(e&&e.clientX,e&&e.clientY);setTimeout(()=>say('Yes! You got it! Tap next!'),700);}else{op.querySelectorAll('.ob')[ch].classList.add('no');fb.innerHTML='❌ Try again next time!';fb.className='fb no';setTimeout(()=>say('Not quite! The right answer is in green!'),350);}document.getElementById('qNext').style.display='inline-flex';}
+function nextQ(){qI++;showQ();}
+function endQ(){document.getElementById('qCont').style.display='none';document.getElementById('qEnd').style.display='block';document.getElementById('qFin').textContent=qSc;const tr=qSc<4?'🌸':qSc<7?'⭐':qSc<10?'🏆':'👑';document.getElementById('qTr').textContent=tr;const m=qSc<4?'Good try! Keep practising!':qSc<7?'Well done! You are learning!':qSc<10?'Amazing! Almost perfect!':'Perfect score! Ice Queen!';document.getElementById('qMsg').textContent=m;say(m);}
+
+const WTI_T=[[3,0],[6,0],[9,0],[12,0],[3,30],[6,30],[9,15],[1,0],[4,0],[7,0],[8,30],[2,0],[11,0]];
+let wtiH=3,wtiMn=0;
+function nextWTI(){const t=WTI_T[Math.floor(Math.random()*WTI_T.length)];wtiH=t[0];wtiMn=t[1];drawClock('wtiClock',wtiH,wtiMn);document.getElementById('wtiFb').textContent='';document.getElementById('wtiFb').className='fb';document.getElementById('wtiNext').style.display='none';const correct=`${wtiH}:${P2(wtiMn)}`;wtiSp='What time does the clock show?';let opts=[correct];while(opts.length<6){const rt=WTI_T[Math.floor(Math.random()*WTI_T.length)],ro=`${rt[0]}:${P2(rt[1])}`;if(!opts.includes(ro))opts.push(ro);}opts.sort(()=>Math.random()-.5);const el=document.getElementById('wtiOpts');el.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.className='ob';b.textContent=o;b.onclick=e=>{el.querySelectorAll('.ob').forEach(x=>x.onclick=null);if(o===correct){b.classList.add('ok');document.getElementById('wtiFb').innerHTML='⭐ YES! '+correct+'! ⭐';document.getElementById('wtiFb').className='fb ok';wtiStr++;document.getElementById('wtiStr').textContent=wtiStr;addStar(e.clientX,e.clientY);say(`Yes! The time is ${t2w(wtiH,wtiMn)}!`);}else{b.classList.add('no');el.querySelectorAll('.ob').forEach(x=>{if(x.textContent===correct)x.classList.add('ok');});document.getElementById('wtiFb').innerHTML='❌ It was '+correct+'!';document.getElementById('wtiFb').className='fb no';wtiStr=0;document.getElementById('wtiStr').textContent=0;say(`Not quite! The time was ${t2w(wtiH,wtiMn)}!`);}document.getElementById('wtiNext').style.display='inline-flex';};el.appendChild(b);});setTimeout(()=>say('What time does the clock show?'),280);}
+
+function loadSCT(){const t=scTgts[scI%scTgts.length];document.getElementById('scTgt').textContent=`Set to ${t.h}:${P2(t.m)} 🕒`;document.getElementById('scH').value=12;document.getElementById('scM').value=0;updSC();setTimeout(saySCT,320);}
+function updSC(){const h=parseInt(document.getElementById('scH').value),m=parseInt(document.getElementById('scM').value);drawClock('scClock',h,m);document.getElementById('scHv').textContent=h;document.getElementById('scMv').textContent=P2(m);}
+function saySCT(){const t=scTgts[scI%scTgts.length];say(`Can you set the clock to ${t2w(t.h,t.m)}? Move the sliders!`);}
+function chkSC(){const h=parseInt(document.getElementById('scH').value),m=parseInt(document.getElementById('scM').value),t=scTgts[scI%scTgts.length],fb=document.getElementById('scFb');if(h===t.h&&m===t.m){fb.innerHTML='⭐ Perfect! ⭐';fb.className='fb ok';addStar();say('Perfect!');setTimeout(()=>{scI++;loadSCT();fb.textContent='';fb.className='fb';},2000);}else{fb.innerHTML='❌ Try again!';fb.className='fb no';say(`Not quite! Try ${t2w(t.h,t.m)}!`);}}
+
+const MEM_T=[{d:'3:00',h:3,m:0},{d:'6:30',h:6,m:30},{d:'9:15',h:9,m:15},{d:'12:00',h:12,m:0},{d:'4:45',h:4,m:45}];
+function initMem(){memFl=[];memMa=[];memMv=0;document.getElementById('memMv').textContent=0;document.getElementById('memPr').textContent=0;document.getElementById('memFb').textContent='';document.getElementById('memFb').className='fb';const cards=[];MEM_T.forEach((t,i)=>{cards.push({id:'a'+i,tp:'a',ti:i});cards.push({id:'d'+i,tp:'d',ti:i});});cards.sort(()=>Math.random()-.5);const g=document.getElementById('memGrid');g.innerHTML='';cards.forEach(card=>{const d=document.createElement('div');d.id='mc'+card.id;d.className='mc';d.innerHTML='❄️';d.onclick=()=>flipMem(card,d);g.appendChild(d);});say('Find the matching pairs!');}
+function flipMem(card,div){if(memFl.length>=2||div.dataset.f==='1'||memMa.includes(card.id))return;div.dataset.f='1';div.style.background='#c8e8f5';const t=MEM_T[card.ti];if(card.tp==='d'){div.innerHTML=`<span style="font-family:'Fredoka One',cursive;font-size:1.15em;color:#2d6080">${t.d}</span>`;}else{const cv=document.createElement('canvas');cv.width=58;cv.height=58;const tid='mt'+Math.random().toString(36).substr(2,5);cv.id=tid;div.innerHTML='';div.appendChild(cv);setTimeout(()=>drawClock(tid,t.h,t.m,undefined,{hw:3,mw:2}),10);}memFl.push({card,div});if(memFl.length===2){memMv++;document.getElementById('memMv').textContent=memMv;setTimeout(chkMem,820);}}
+function chkMem(){const[a,b]=memFl;if(a.card.ti===b.card.ti&&a.card.tp!==b.card.tp){[a.div,b.div].forEach(d=>{d.classList.add('mat');d.onclick=null;});memMa.push(a.card.id,b.card.id);const pr=memMa.length/2;document.getElementById('memPr').textContent=pr;addStar();say('You found a match!');if(pr>=5){document.getElementById('memFb').innerHTML='🏆 All pairs! AMAZING! 🏆';document.getElementById('memFb').className='fb ok';say('You matched all the pairs! Amazing!');}}else{[a.div,b.div].forEach(d=>{d.innerHTML='❄️';d.style.background='';delete d.dataset.f;});const[ac,bc]=[a.card,b.card];a.div.onclick=()=>flipMem(ac,a.div);b.div.onclick=()=>flipMem(bc,b.div);say('Not a match!');}memFl=[];}
+
+const TD_Q=[
+  {s:"🌅 Anna wakes up at 7 o'clock. School starts at 9 o'clock. How long to get ready?",sp:"Anna wakes up at seven. School starts at nine. How long does she have?",opts:['1 hour','2 hours','3 hours'],spO:['one hour','two hours','three hours'],c:1},
+  {s:"❄️ Elsa's ice show starts at 3 and ends at 5. How long is the show?",sp:"Elsa's show starts at three and ends at five. How long?",opts:['1 hour','2 hours','4 hours'],spO:['one hour','two hours','four hours'],c:1},
+  {s:"⛄ Olaf naps at half past 2 and wakes at 3 o'clock. How long did he sleep?",sp:"Olaf naps at half past two and wakes at three. How long?",opts:['15 minutes','30 minutes','1 hour'],spO:['fifteen minutes','thirty minutes','one hour'],c:1},
+  {s:"🛷 Kristoff leaves at 8 and arrives at noon. How long was his journey?",sp:"Kristoff leaves at eight and arrives at noon. How long?",opts:['2 hours','4 hours','6 hours'],spO:['two hours','four hours','six hours'],c:1},
+  {s:"🌸 Anna plays from 2 o'clock until half past 2. How long did she play?",sp:"Anna plays from two until half past two. How long?",opts:['15 minutes','30 minutes','1 hour'],spO:['fifteen minutes','thirty minutes','one hour'],c:1},
+];
+function nextTD(){const q=TD_Q[tdI%TD_Q.length];tdSp=q.sp;document.getElementById('tdStory').textContent=q.s;document.getElementById('tdFb').textContent='';document.getElementById('tdFb').className='fb';document.getElementById('tdNext').style.display='none';const el=document.getElementById('tdOpts');el.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='ob';b.textContent=o;b.onclick=e=>{el.querySelectorAll('.ob').forEach(x=>x.onclick=null);say(q.spO[i]);if(i===q.c){b.classList.add('ok');document.getElementById('tdFb').innerHTML='⭐ Correct! ⭐';document.getElementById('tdFb').className='fb ok';tdSc++;document.getElementById('tdSc').textContent=tdSc;addStar(e.clientX,e.clientY);say(`Correct! ${q.spO[i]}!`);}else{b.classList.add('no');el.querySelectorAll('.ob')[q.c].classList.add('ok');document.getElementById('tdFb').innerHTML='❌ Not quite!';document.getElementById('tdFb').className='fb no';say(`Not quite! The answer is ${q.spO[q.c]}!`);}document.getElementById('tdNext').style.display='inline-flex';};el.appendChild(b);});setTimeout(()=>say(q.sp),280);tdI++;}
+
+// MINI GAME 1: BALLOON POP
+const BALL_T=[{h:3,m:0,l:'3:00'},{h:6,m:0,l:'6:00'},{h:9,m:0,l:'9:00'},{h:12,m:0,l:'12:00'},{h:3,m:30,l:'3:30'},{h:6,m:30,l:'6:30'},{h:9,m:15,l:'9:15'},{h:1,m:0,l:'1:00'},{h:4,m:0,l:'4:00'},{h:7,m:0,l:'7:00'}];
+const BEMOJI=['🎈','🎀','🌈','⭐','💛','💙','💚','💜','🎊','🎆'];
+function nextBall(){const t=BALL_T[Math.floor(Math.random()*BALL_T.length)];ballCorrect=t.l;ballSp=`Find and pop the balloon that shows ${t.l}!`;document.getElementById('ballTgt').textContent=`Pop the balloon showing: ${t.l} 🎈`;document.getElementById('ballFb').textContent='';document.getElementById('ballFb').className='fb';const zone=document.getElementById('ballZone');zone.innerHTML='';let opts=[t.l];while(opts.length<6){const rt=BALL_T[Math.floor(Math.random()*BALL_T.length)];if(!opts.includes(rt.l))opts.push(rt.l);}opts.sort(()=>Math.random()-.5);opts.forEach((o,i)=>{const wrap=document.createElement('div');wrap.className='bwrap';wrap.style.left=(6+i*15)+'%';wrap.style.animationDuration=(3.5+Math.random()*3)+'s';wrap.style.animationDelay=(Math.random()*1.5)+'s';const bico=document.createElement('div');bico.className='bico';bico.textContent=BEMOJI[i%BEMOJI.length];const blbl=document.createElement('div');blbl.className='blbl';blbl.textContent=o;wrap.appendChild(bico);wrap.appendChild(blbl);wrap.onclick=e=>{zone.querySelectorAll('.bwrap').forEach(x=>x.onclick=null);if(o===ballCorrect){wrap.style.transform='scale(1.5)';wrap.style.opacity='0';document.getElementById('ballFb').innerHTML='⭐ POP! You found it! ⭐';document.getElementById('ballFb').className='fb ok';ballSc++;document.getElementById('ballSc').textContent=ballSc;addStar(e.clientX,e.clientY);say(`Yes! You popped ${o}!`);}else{wrap.style.opacity='.25';document.getElementById('ballFb').innerHTML='❌ Not that one!';document.getElementById('ballFb').className='fb no';say('Not that one! Keep looking!');}};zone.appendChild(wrap);});setTimeout(()=>sayBall(),350);}
+function sayBall(){say(ballSp||`Find the balloon showing ${ballCorrect}!`);}
+
+// MINI GAME 2: DAILY ORDER
+const ORDER_A=[
+  {e:'😴',n:'Wake up!',h:7,sp:'We wake up at seven in the morning!'},
+  {e:'🥞',n:'Breakfast',h:7.5,sp:'We eat breakfast at half past seven!'},
+  {e:'🎒',n:'Go to school',h:8.5,sp:'We go to school at half past eight!'},
+  {e:'📚',n:'Learn!',h:9,sp:'We learn at nine o clock!'},
+  {e:'🥪',n:'Lunchtime',h:12.5,sp:'We eat lunch at half past twelve!'},
+  {e:'⛹️',n:'Play!',h:15.5,sp:'We play at half past three!'},
+  {e:'🍝',n:'Dinner',h:18,sp:'We eat dinner at six in the evening!'},
+  {e:'🛁',n:'Bath time',h:19,sp:'We have a bath at seven in the evening!'},
+  {e:'📖',n:'Story time',h:19.5,sp:'We have a story at half past seven!'},
+  {e:'😴',n:'Sleep!',h:20,sp:'We go to sleep at eight at night!'},
+];
+function initOrder(){orderSel=[];const acts=[...ORDER_A].sort(()=>Math.random()-.5).slice(0,5);orderCorrect=acts.slice().sort((a,b)=>a.h-b.h);const cc=document.getElementById('orderCards');cc.innerHTML='';acts.forEach(a=>{const d=document.createElement('div');d.className='ocard';d.dataset.h=a.h;d.innerHTML=`${a.e}<br><span style="font-size:.76em">${a.n}</span>`;d.onclick=()=>{if(d.classList.contains('placed'))return;orderSel.push({el:d,act:a});d.classList.add('placed');const res=document.getElementById('orderResult');if(res.querySelector('span'))res.innerHTML='';const chip=document.createElement('div');chip.style.cssText='background:#e1f5fe;border:2px solid #a8d8ea;border-radius:9px;padding:4px 9px;font-size:.84em;color:#1a3a4a';chip.textContent=a.e+' '+a.n;res.appendChild(chip);say(a.sp);if(orderSel.length>=5)setTimeout(checkOrder,500);};cc.appendChild(d);});document.getElementById('orderResult').innerHTML='<span style="color:#aaa;font-size:.88em">Tap activities above ↑</span>';document.getElementById('orderFb').textContent='';document.getElementById('orderFb').className='fb';say('Tap the activities in order from morning to night!');}
+function checkOrder(){if(orderSel.length<5){say('Tap all five activities first!');return;}let ok=true;orderSel.forEach((item,i)=>{if(item.act.h!==orderCorrect[i].h)ok=false;});const fb=document.getElementById('orderFb');if(ok){fb.innerHTML='⭐ Perfect order! Amazing! ⭐';fb.className='fb ok';addStar();say('Perfect! You put everything in the right order!');}else{fb.innerHTML='❌ Not quite! Try again!';fb.className='fb no';say('Not quite! Think about what you do first in the morning!');}}
+
+// MINI GAME 3: ACTIVITY GUESS
+const ACTS=[
+  {e:'🥞',n:'Eating breakfast!',part:'Morning',sp:'We eat breakfast in the morning! Around seven A M!',opts:['Morning ☀️','Afternoon','Evening','Night 🌙'],c:0},
+  {e:'🎒',n:'Going to school!',part:'Morning',sp:'We go to school in the morning! Around half past eight!',opts:['Night 🌙','Morning ☀️','Evening','Midnight'],c:1},
+  {e:'🍝',n:'Eating dinner!',part:'Evening',sp:'We eat dinner in the evening! Around six P M!',opts:['Morning','Afternoon','Evening 🌇','Night'],c:2},
+  {e:'😴',n:'Going to sleep!',part:'Night',sp:'We go to sleep at night! Around eight or nine P M!',opts:['Morning','Afternoon','Evening','Night 🌙'],c:3},
+  {e:'⛹️',n:'Playing outside!',part:'Afternoon',sp:'We play outside in the afternoon! Around three P M!',opts:['Morning','Afternoon ☀️','Night','Midnight'],c:1},
+  {e:'🌅',n:'Watching sunrise!',part:'Morning',sp:'We watch the sunrise in the early morning! Around six A M!',opts:['Morning 🌅','Afternoon','Evening','Night'],c:0},
+  {e:'🌙',n:'Looking at stars!',part:'Night',sp:'We look at stars at night! Around nine P M when it is dark!',opts:['Morning','Afternoon','Evening','Night 🌙'],c:3},
+  {e:'🥪',n:'Eating lunch!',part:'Noon',sp:'We eat lunch at noon! At twelve P M, the middle of the day!',opts:['Morning','Noon 🌞','Evening','Night'],c:1},
+  {e:'🛁',n:'Having a bath!',part:'Evening',sp:'We have a bath in the evening before bed! Around seven P M!',opts:['Morning','Afternoon','Evening 🌆','Midnight'],c:2},
+  {e:'🦷',n:'Brushing teeth!',part:'Night',sp:'We brush our teeth at night before sleep! Around eight P M!',opts:['Morning','Afternoon','Evening','Night 🌙'],c:3},
+];
+function nextAct(){const a=ACTS[actI%ACTS.length];actSp=a.sp;document.getElementById('actIco').textContent=a.e;document.getElementById('actName').textContent=a.n;document.getElementById('actHint').textContent='What time of day is this?';document.getElementById('actFb').textContent='';document.getElementById('actFb').className='fb';document.getElementById('actNext').style.display='none';const el=document.getElementById('actOpts');el.innerHTML='';a.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='ob';b.textContent=o;b.onclick=e=>{el.querySelectorAll('.ob').forEach(x=>x.onclick=null);if(i===a.c){b.classList.add('ok');document.getElementById('actFb').innerHTML='⭐ YES! Correct! ⭐';document.getElementById('actFb').className='fb ok';actSc++;document.getElementById('actSc').textContent=actSc;addStar(e.clientX,e.clientY);say(a.sp);}else{b.classList.add('no');el.querySelectorAll('.ob')[a.c].classList.add('ok');document.getElementById('actFb').innerHTML='❌ Not quite!';document.getElementById('actFb').className='fb no';say(`Not quite! We do this in the ${a.part}!`);}document.getElementById('actNext').style.display='inline-flex';};el.appendChild(b);});setTimeout(()=>say(`When do we do this? ${a.n}`),280);actI++;}
+function sayAct(){say(actSp||'Look at the picture and guess the time of day!');}
+
+// MINI GAME 4: SPIN THE CLOCK
+const SPIN_T=[{h:3,m:0},{h:6,m:0},{h:9,m:0},{h:12,m:0},{h:3,m:30},{h:6,m:30},{h:9,m:15},{h:1,m:0},{h:4,m:0},{h:7,m:45}];
+function nextSpin(){const t=SPIN_T[spinI%SPIN_T.length];spinTH=t.h;spinTM=t.m;spinH=12;spinM=0;document.getElementById('spinTgt').textContent=`${t.h}:${P2(t.m)}`;document.getElementById('spinHint').textContent=`Drag the 🟢 green hand to show ${t2w(t.h,t.m)}!`;document.getElementById('spinFb').textContent='';document.getElementById('spinFb').className='fb';document.getElementById('spinNext').style.display='none';drawClock('spinClock',spinH,spinM);document.getElementById('spinYours').textContent=`${P2(spinH)}:${P2(spinM)}`;saySpinTgt();spinI++;}
+function saySpinTgt(){say(`Drag the green hand to show: ${t2w(spinTH,spinTM)}!`);}
+function initSpinClock(){const cv=document.getElementById('spinClock');if(!cv||cv._si)return;cv._si=true;function getA(e){const r=cv.getBoundingClientRect(),sc=cv.width/r.width,src=e.touches?e.touches[0]:e,x=(src.clientX-r.left)*sc-cv.width/2,y=(src.clientY-r.top)*sc-cv.width/2;return Math.atan2(y,x);}function fromA(a){let d=(a*180/Math.PI+360+90)%360;spinM=Math.round(d/6)%60;drawClock('spinClock',spinH,spinM);document.getElementById('spinYours').textContent=`${P2(spinH%12||12)}:${P2(spinM)}`;}cv.addEventListener('mousedown',e=>{spinDrag=true;fromA(getA(e));});window.addEventListener('mousemove',e=>{if(spinDrag)fromA(getA(e));});window.addEventListener('mouseup',()=>spinDrag=false);cv.addEventListener('touchstart',e=>{spinDrag=true;fromA(getA(e));e.preventDefault();},{passive:false});cv.addEventListener('touchmove',e=>{if(spinDrag){fromA(getA(e));e.preventDefault();}},{passive:false});cv.addEventListener('touchend',()=>spinDrag=false);}
+function chkSpin(){const diff=Math.abs(spinM-spinTM),alt=60-diff,close=Math.min(diff,alt),fb=document.getElementById('spinFb');if(close<=3){fb.innerHTML='⭐ Amazing! Perfect! ⭐';fb.className='fb ok';addStar();say(`Amazing! You showed ${t2w(spinTH,spinTM)} perfectly!`);document.getElementById('spinNext').style.display='inline-flex';}else if(close<=8){fb.innerHTML='🌟 Very close! Great try!';fb.className='fb ok';say('Very close! Great try!');document.getElementById('spinNext').style.display='inline-flex';}else{fb.innerHTML='❌ Not quite! Try again!';fb.className='fb no';say(`Not quite! Try moving the green hand to ${t2w(spinTH,spinTM)}!`);}}
+
+// SEASONS
+const SEAS_AU={summer:{e:'☀️',n:'Summer',months:'Dec · Jan · Feb',d:'Hot! ☀️ Beach! 🏖️ Christmas! 🎄☀️ Cricket! 🏏',sp:'Summer in Australia is December, January and February! Very hot! Australians have Christmas on the beach!',cls:'sum'},autumn:{e:'🍂',n:'Autumn',months:'Mar · Apr · May',d:'Leaves fall! 🍁 Cooling down! 🌬️ Easter! 🐣',sp:'Autumn in Australia is March, April and May! Leaves change colour! Easter often happens in autumn!',cls:'aut'},winter:{e:'❄️',n:'Winter',months:'Jun · Jul · Aug',d:'Coolest time! 🧥 Frost! 🌨️ School holidays! ⛷️',sp:'Winter in Australia is June, July and August! Coolest time! But warmer than European winter!',cls:'win'},spring:{e:'🌸',n:'Spring',months:'Sep · Oct · Nov',d:'Flowers bloom! 🌷 Baby animals! 🐣 Warming up! ☀️',sp:'Spring in Australia is September, October and November! Flowers bloom and baby animals are born!',cls:'spr'}};
+const SEAS_NH={spring:{e:'🌸',n:'Spring',months:'Mar · Apr · May',d:'Flowers! 🌷 Easter! 🐣 Warming up! ☀️',sp:'Spring in Europe is March, April and May! Flowers bloom and it gets warmer!',cls:'spr'},summer:{e:'☀️',n:'Summer',months:'Jun · Jul · Aug',d:'Hot! ☀️ Beach! 🏖️ Long days! 🌅 Holidays!',sp:'Summer in Europe is June, July and August! Hot sunny days!',cls:'sum'},autumn:{e:'🍂',n:'Autumn',months:'Sep · Oct · Nov',d:'Leaves fall! 🍁 Halloween! 🎃 Getting cold!',sp:'Autumn in Europe is September, October and November! Leaves turn red and gold!',cls:'aut'},winter:{e:'❄️',n:'Winter',months:'Dec · Jan · Feb',d:'Cold! ❄️ Snow! ⛄ Christmas! 🎄 Short days!',sp:'Winter in Europe is December, January and February! Cold and snowy! Christmas in winter! Elsa loves this!',cls:'win'}};
+function setHemi(h){hemi=h;document.getElementById('hAU').classList.toggle('on',h==='AU');document.getElementById('hNH').classList.toggle('on',h==='NH');document.getElementById('hnote').textContent=h==='AU'?'🌏 Australia — Summer in December! Christmas = hot & sunny! 🎄☀️':'🌍 Northern Hemisphere — Summer in June! Christmas = cold & snowy! 🎄❄️';document.getElementById('seasInfo').style.display='none';renderSeas();say(h==='AU'?'Showing Australian seasons! Summer is in December! Christmas is hot!':'Showing northern hemisphere! Summer is in June! Christmas is cold and snowy!');}
+function renderSeas(){const data=hemi==='AU'?SEAS_AU:SEAS_NH;const order=hemi==='AU'?['summer','autumn','winter','spring']:['spring','summer','autumn','winter'];const g=document.getElementById('seasGrid');g.innerHTML='';order.forEach(k=>{const s=data[k];const div=document.createElement('div');div.className='sc '+s.cls;div.id='sk-'+k;div.innerHTML=`<span class="si">${s.e}</span><span class="sn">${s.n}</span><span class="sm">${s.months}</span>`;div.onclick=()=>showSeas(k);g.appendChild(div);});}
+function showSeas(k){document.querySelectorAll('#seasGrid .sc').forEach(c=>c.classList.remove('on'));const el2=document.getElementById('sk-'+k);if(el2)el2.classList.add('on');const data=hemi==='AU'?SEAS_AU:SEAS_NH;const s=data[k];const el=document.getElementById('seasInfo');el.style.display='block';el.innerHTML=`<div style="font-size:1.1em;color:#4a90b8;margin-bottom:4px">${s.e} ${s.n} — ${s.months}</div><div>${s.d}</div>`;say(s.sp);}
+
+// DAY & NIGHT
+const DN=[{h:0,c:'sc-n',i:'🌙',nm:'Midnight!',d:'Everybody sleeping! 😴🌙',sp:'Midnight! Twelve o clock at night!'},{h:5,c:'sc-m',i:'🌄',nm:'Almost Morning!',d:'Sky getting bright! 🐦',sp:'Almost morning! Five A M!'},{h:6,c:'sc-m',i:'🌅',nm:'Good Morning! 🌅',d:'Sunrise! Wake up! 🥞',sp:'Good morning! Six A M! Time to wake up!'},{h:7,c:'sc-m',i:'☀️',nm:'Morning ☀️',d:"School time! Let's go! 🎒",sp:'Morning! Seven A M! Time to go to school!'},{h:12,c:'sc-a',i:'🌞',nm:'NOON! Midday! 🌞',d:'Lunchtime! 🥪 PM starts!',sp:'Noon! The middle of the day! A M ends and P M begins!'},{h:13,c:'sc-a',i:'☀️',nm:'Afternoon! 1 PM',d:'After lunch! Adventures! 🌳',sp:'One P M! Afternoon time!'},{h:15,c:'sc-a',i:'☀️',nm:'3 PM Play time!',d:"School's out! Play! 🎉",sp:"Three P M! Play time!"},{h:18,c:'sc-e',i:'🌇',nm:'Evening! 6 PM',d:'Dinner! 🍝 Sun sets! 🌅',sp:'Evening! Six P M! Dinner time!'},{h:20,c:'sc-e',i:'🌃',nm:'8 PM Almost bed!',d:'Bath! Storytime! 📖🛁',sp:'Eight P M! Almost bedtime!'},{h:21,c:'sc-n',i:'🌙',nm:'Night! Bedtime! 🌙',d:'Bedtime! 😴 Sweet dreams! 💤',sp:'Nine P M! Bedtime! Goodnight!'}];
+function updDN(hr){dnHr=parseInt(hr);let sc=DN[0];for(const s of DN)if(dnHr>=s.h)sc=s;const el=document.getElementById('dnSc');el.className='dn-s '+sc.c;document.getElementById('dnIco').textContent=sc.i;document.getElementById('dnNm').textContent=sc.nm;document.getElementById('dnDs').textContent=sc.d;const isN=sc.c==='sc-n';['dnNm','dnDs'].forEach(id=>{document.getElementById(id).style.color=isN?'#fff':'#1a3a4a';});const h12=dnHr%12||12,isA=dnHr<12;document.getElementById('dnHr').textContent=`${h12}:00 ${isA?'☀️ AM':'🌙 PM'}`;}
+function sayDN(){const sc=DN.slice().reverse().find(s=>dnHr>=s.h)||DN[0];say(sc.sp);}
+
+// CALENDAR
+function renCal(){renCalG();}
+function renCalG(){const n=new Date();document.getElementById('calTitle').textContent=`${moIc[calMo]} ${moN[calMo]} ${calY}`;const g=document.getElementById('calGrid');g.innerHTML='';['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{const e=document.createElement('div');e.className='ch';e.textContent=d;g.appendChild(e);});const fd=new Date(calY,calMo,1).getDay(),dm=new Date(calY,calMo+1,0).getDate();for(let i=0;i<fd;i++){const e=document.createElement('div');e.className='cc emp';g.appendChild(e);}for(let d=1;d<=dm;d++){const isT=n.getFullYear()===calY&&n.getMonth()===calMo&&n.getDate()===d;const e=document.createElement('div');e.className='cc'+(isT?' tod':'');e.textContent=d;const dd=new Date(calY,calMo,d),dn2=dd.toLocaleDateString('en-AU',{weekday:'long'});e.onclick=()=>{say(`${dn2} the ${d}${d===1?'st':d===2?'nd':d===3?'rd':'th'} of ${moN[calMo]}!`);const ci=document.getElementById('calInfo');ci.style.display='block';ci.textContent=`📅 ${dn2} ${d} ${moN[calMo]} ${calY}`;};g.appendChild(e);}say(`This is ${moN[calMo]} ${calY}!`);}
+function chgMo(d){calMo+=d;if(calMo>11){calMo=0;calY++;}if(calMo<0){calMo=11;calY--;}renCalG();}
+function renToday(){const n=new Date(),o={weekday:'long',year:'numeric',month:'long',day:'numeric'};document.getElementById('todD').textContent=n.toLocaleDateString('en-AU',o);const t=new Date(n);t.setDate(t.getDate()+1);document.getElementById('tomD').textContent=t.toLocaleDateString('en-AU',o);const y=new Date(n);y.setDate(y.getDate()-1);document.getElementById('yesD').textContent=y.toLocaleDateString('en-AU',o);document.getElementById('thisMo').textContent=moN[n.getMonth()];document.getElementById('thisYr').textContent=n.getFullYear();}
+function sayToday(){say('Today is '+new Date().toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'!');}
+function sayTom(){const t=new Date();t.setDate(t.getDate()+1);say('Tomorrow will be '+t.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'})+'!');}
+function sayYes(){const y=new Date();y.setDate(y.getDate()-1);say('Yesterday was '+y.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'})+'!');}
+function renMo12(){const g=document.getElementById('mo12');if(!g||g.children.length)return;const cols=['#e3f2fd','#fce4ec','#f3e5f5','#e8f5e9','#fffde7','#ffe0b2','#e1f5fe','#fce4ec','#f3e5f5','#fff3e0','#e8f5e9','#e3f2fd'];moN.forEach((m,i)=>{const c=document.createElement('div');c.className='moc';c.style.background=cols[i];c.innerHTML=`<span class="moi">${moIc[i]}</span><span class="mon">${m}</span>`;c.onclick=()=>say(moSp[i]);g.appendChild(c);});}
+
+const DAYS=[{n:'Sunday',e:'🌟',sp:'Sunday! First day of the week! Family time! Named after the Sun!'},{n:'Monday',e:'💪',sp:'Monday! Back to school! Named after the Moon!'},{n:'Tuesday',e:'🌸',sp:'Tuesday! Named after Tiw the warrior god!'},{n:'Wednesday',e:'📚',sp:'Wednesday! Middle of the week! Named after Woden!'},{n:'Thursday',e:'⚡',sp:"Thursday! Named after Thor the thunder god!"},{n:'Friday',e:'🎉',sp:"Friday! Last school day! Named after Frigg!"},{n:'Saturday',e:'🛷',sp:'Saturday! Weekend! Adventures time!'}];
+function buildDays(){const el=document.getElementById('days-list');if(!el||el.children.length)return;DAYS.forEach(d=>{const div=document.createElement('div');div.className='ic';div.style.cssText='display:flex;align-items:center;gap:10px;text-align:left;padding:9px 12px';div.innerHTML=`<span style="font-size:2em">${d.e}</span><span style="font-size:1em;color:#2d6080">${d.n}</span>`;div.onclick=()=>say(d.sp);el.appendChild(div);});}
+function buildMonths(){const g=document.getElementById('months-grid');if(!g||g.children.length)return;const cols=['#e3f2fd','#fce4ec','#f3e5f5','#e8f5e9','#fffde7','#ffe0b2','#e1f5fe','#fce4ec','#f3e5f5','#fff3e0','#e8f5e9','#e3f2fd'];moN.forEach((m,i)=>{const c=document.createElement('div');c.className='moc';c.style.background=cols[i];c.innerHTML=`<span class="moi">${moIc[i]}</span><span class="mon">${m}</span>`;c.onclick=()=>{say(moSp[i]);const mi=document.getElementById('mo-info');mi.style.display='block';mi.textContent=`${moIc[i]} ${m} — Month ${i+1} of 12`;};g.appendChild(c);});}
+
+// ASK ELSA
+const KB={'clock':'A clock is a magical tool that tells us the time! An analogue clock has moving hands! Short for hours and long for minutes! I have a beautiful ice clock in my palace!','hour':'There are twenty four hours in every day! Twelve A M hours in the morning, and twelve P M hours in the afternoon and night!','minute':'Sixty minutes make one whole hour! The long hand on the clock shows the minutes!','season':'There are four seasons! In Australia, summer is in December, autumn in March, winter in June, spring in September! This is opposite to Europe!','australia':'In Australia the seasons are reversed! Summer is December, January, February! So Christmas in Australia is hot and sunny! Australians swim at the beach on Christmas Day!','am':'A M means morning time! From midnight all the way to noon at twelve P M!','pm':'P M means afternoon and night! From noon until midnight!','half past':'Half past means thirty minutes! The long hand points straight down to the six!','quarter past':'Quarter past means fifteen minutes! The long hand points to the right at three!','quarter to':'Quarter to means fifteen minutes before the next hour! Long hand to the left at nine!','month':'There are twelve months! January, February, March, April, May, June, July, August, September, October, November, December!','week':'Seven days in a week! Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday!','bedtime':'Bedtime for little ones is around seven or eight P M! Bath, story, then sleep!','anna':"Anna is my wonderful sister! She wakes up early every morning! She loves adventures!",'olaf':"Olaf loves warm hugs and sunny afternoons! He is always happy!",'morning':'Morning is from six A M to noon! Breakfast, school, learning!','afternoon':'Afternoon is from noon to about six P M! Playtime and adventures!','evening':'Evening is from about six to nine P M! Dinner, bath, story time!','night':'Night is from nine P M to six A M! Sleep and sweet dreams!','read':'To read a clock: first the short hand for the hour, then count by fives from twelve with the long hand for the minutes!'};
+function qA(q){document.getElementById('elsaI').value=q;askE();}
+function askE(){const inp=document.getElementById('elsaI'),q=inp.value.trim();if(!q)return;addB(q,'us');say(q);inp.value='';setTimeout(()=>respE(q),550);}
+function respE(q){const ql=q.toLowerCase();let r="Great question! Ask me about clocks, seasons, months, or time! ❄️";for(const[k,a]of Object.entries(KB)){if(ql.includes(k)){r=a;break;}}if(ql.includes('elsa')||ql.includes('frozen'))r="I am Queen Elsa of Arendelle! I have ice powers and I love teaching about time! Let it go and let us learn!";if(ql.includes('kristoff'))r="Kristoff delivers ice all day! He wakes at six A M and gets home for dinner at six P M!";addB(r,'el');say(r);}
+function addB(txt,who){const h=document.getElementById('chatH'),row=document.createElement('div');row.className='cr '+(who==='us'?'us':'');const av=document.createElement('div');av.style.cssText='font-size:1.7em;flex-shrink:0';av.textContent=who==='el'?'👸':'🧒';const b=document.createElement('div');b.className='bub '+(who==='el'?'el':'us');b.textContent=txt;row.appendChild(av);row.appendChild(b);h.appendChild(row);h.scrollTop=h.scrollHeight;}
+
+// INIT
+makeSnow();
+startLive();
+setInterval(()=>{const d=document.getElementById('digNow');if(d){const n=new Date();d.textContent=`${P2(n.getHours())}:${P2(n.getMinutes())}`;};},1000);
+buildDays();buildMonths();buildMinRing();buildPresets();buildExGrid();
+setTimeout(()=>{initMain();renderSeas();},200);
+</script>
